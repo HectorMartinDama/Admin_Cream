@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
-import { ChildActivationStart, Router } from '@angular/router'; 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
-import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router'; 
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({

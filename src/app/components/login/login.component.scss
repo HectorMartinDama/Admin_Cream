@@ -2,12 +2,15 @@
 .container{
     display: flex;
     justify-content: center;
-    margin: 100px;
-    min-width: 350px; 
+    height: 100vh;
+    min-width: 350px;
 }
 
 *{
     font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: 0px;
 }
 
 form{
