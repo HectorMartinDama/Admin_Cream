@@ -9,9 +9,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import {MatFormFieldModule} from '@angular/material/form-field';
 // peticiones http
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginErrorComponent } from './components/login/login-error/login-error.component';
+// cookie serivice
+import { CookieService } from 'ngx-cookie-service';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 
 @NgModule({
@@ -19,7 +23,8 @@ import { LoginErrorComponent } from './components/login/login-error/login-error.
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    LoginErrorComponent
+    LoginErrorComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,7 @@ import { LoginErrorComponent } from './components/login/login-error/login-error.
     MatFormFieldModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

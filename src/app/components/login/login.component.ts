@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'; // peticiones http
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service'; // cookies service
+// services
+import { LoginService } from 'src/app/services/login.service';
+
 
 
 
@@ -12,10 +16,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent {
 
-
   error: Error | null = null
 
-  constructor(private http : HttpClient, private router: Router){}
+  constructor(private http: HttpClient, private loginSvc: LoginService, private cookieService: CookieService, private router: Router){}
 
   // Controla que todos los campos del formulario son validos
   public formValidator= new FormGroup({
@@ -30,14 +33,34 @@ export class LoginComponent {
   
   login(){
     this.http.post<any>('http://localhost:3000/api/users/login', this.formValidator.value).subscribe({
-        next: data => {
-            this.router.navigate(['/dashboard'])
-        },
-        error: error => {
-            this.error= error.error.errors[0].msg;
-        }
+      next: data =>{
+        this.cookieService.set('session', data.token) // guardo el token
+        this.router.navigate(['/dashboard'])
+      },
+      error: error =>{
+        this.error= error.error.errors[0].msg;
+      }
     })
   }
+
+  newProduct(){
+    this.http.post<any>('http://localhost:3000/api/products/createProduct', {model: "NikeRojas", brand: "Adias", uid: "32423434D"
+    }).subscribe({
+      next: data =>{
+        console.log('Registro Completado')
+      },
+      error: error =>{
+        console.log(error)
+      }
+    })
+  }
+
+  
+  logOut(){
+   this.loginSvc.logOut()
+  }
+
+
 
   
 
