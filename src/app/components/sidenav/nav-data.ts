@@ -1,28 +1,38 @@
-export const navbarData = [
-    {
+import { INavbarData } from "./helper";
+
+export const navbarData : INavbarData[] = [
+    { 
         label: 'Inicio',
-        icon: 'home',
-        link: '/login'
+        icon: 'bx bx-home-alt-2',
+        routerLink: ''
     },
     {
         label: 'Pedidos',
-        icon: 'inventory_2',
-        link: '/login'
+        icon: 'bx bx-package',
+        routerLink: 'dashboard'
     },
     {
         label: 'Productos',
-        icon: 'list_alt',
-        link: '/login'
+        icon: 'bx bxl-deezer',
+        routerLink: '',
+        items: [
+            {
+                routerLink: '',
+                label: 'Agregar Producto'
+
+            },
+            {
+                routerLink: '',
+                label: 'Buscar Producto'
+            }
+
+        ]
+
     },
     {
         label: 'Clientes',
-        icon: 'person',
-        link: '/login'
-    },
-    {
-        label: 'Logout',
-        icon: 'bx bx-log-out'
-
+        icon: 'bx bx-user',
+        routerLink: ''
     }
 ];
 

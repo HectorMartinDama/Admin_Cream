@@ -1,18 +1,36 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-<div class="sidenav">
+<!-- barra superior -->
+<app-navbar></app-navbar>
+
+
+
+<!-- barra lateral -->
+<hr class="separador">
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : '' ">
     <div class="logoContainer">
-        <div class="userName"></div>
-        <button class="btn-close"></button>
+        <button class="logo" (click)="toggleCollapsed()">P</button>
+        <div class="userName" @fadeInout *ngIf="collapsed">UsuarioPrueba</div>
+        <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+            <i class='bx bx-x'></i>
+        </button>
     </div>
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.link]">
+            <a class="sidenav-nav-link" [routerLink]="[data.routerLink]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <i class="sidenav-link-icon" [class]="data.icon"></i>
                 <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
             </a>
+            <app-sublevel-menu [data]="data" [collapsed]="collapsed"></app-sublevel-menu>
         </li>
-
-
+        <!-- boto de cerrar sesion -->
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link" (click)="logout()">
+                <i class="sidenav-link-icon bx bx-log-out" ></i>
+                <span class="sidenav-link-text" @fadeInout *ngIf="collapsed">Logout</span>
+            </a>
+        </li>
     </ul>
+    
 </div>
+
