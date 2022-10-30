@@ -20,8 +20,7 @@
     transition: all .5s ease;
     position: fixed;
     z-index: 1;
-    bottom: 0;
-    top: 6.5vh;
+    top: 0;
     width: 5rem; // para mobile
     height: 100vh; // los otros 20 son de la barra superior.
     border-right: 1px solid #C6C6C6;
@@ -122,10 +121,14 @@
         background: white;
         color: black;
     }
+    .menu-collapsed-icon{
+        color: black;
+    }
 }
 
 .active{
     background-color: white;
+    .menu-collapsed-icon,
     .sidenav-link-icon,
     .sidenav-link-text{
         color: black;
@@ -133,26 +136,43 @@
     
 }
 
-/* Barra superior
-.container{
-    display: flex;
-    flex-direction: column;
-    padding-left: 60px;
-    border-bottom: 1px solid #C6C6C6;;
+// submenu
+.menu-collapsed-icon{
+    width: 2rem;
+    text-align: center;
+    color: #C6C6C6;
 }
 
-.titulo{
-    font-size: 34px;
-    font-weight: 700;
-}
+.sublevel-nav{
+    list-style: none;
+    margin-left: 10px;
 
-.secondTitle{
-    font-size: 8px;
-    color: #1C1C1C;
-    letter-spacing: 13px;
-    font-weight: bold;
-    padding-left: 10px;
+    .sublevel-nav-item{
+        .sublevel-nav-link{
+            display: flex;
+            align-items: center;
+            height: 3rem;
+            text-decoration: none;
+            color: #B6B6B6;
+            border-radius: 0.625rem;
+            transition: all .3s ease;
+        }
+
+        
+        .sublevel-link-text{
+            margin-left: 0.8rem;
+        }
+
+        .sublevel-nav-link:hover{
+            color: black;
+    
+        }
+    }
+
+    
+
+
+
 }
-*/
 
 

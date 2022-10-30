@@ -18,8 +18,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LoginErrorComponent } from './components/login/login-error/login-error.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { SublevelMenuComponent } from './components/sidenav/sublevel-menu.component';
+import { BuscarProductoComponent } from './components/buscar-producto/buscar-producto.component';
 
 
 @NgModule({
@@ -29,8 +29,8 @@ import { SublevelMenuComponent } from './components/sidenav/sublevel-menu.compon
     LoginErrorComponent,
     SidenavComponent,
     BodyComponent,
-    NavbarComponent,
-    SublevelMenuComponent
+    SublevelMenuComponent,
+    BuscarProductoComponent
   ],
   imports: [
     BrowserModule,

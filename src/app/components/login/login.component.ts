@@ -34,7 +34,7 @@ export class LoginComponent {
   login(){
     this.http.post<any>('http://localhost:3000/api/users/login', this.formValidator.value).subscribe({
       next: data =>{
-        this.cookieService.set('session', data.token) // guardo el token
+        localStorage.setItem('session', data.token) // guardo el token.
         this.router.navigate(['/dashboard'])
       },
       error: error =>{

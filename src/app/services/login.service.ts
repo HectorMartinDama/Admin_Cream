@@ -27,7 +27,7 @@ export class LoginService {
 
   // Cierra la sesion, borrando la cookie "session" que esta guardado el token.
   logOut(){
-    this.cookieService.delete('session')
+    localStorage.removeItem('session')
     this.router.navigate(['/login'])
   }
 }

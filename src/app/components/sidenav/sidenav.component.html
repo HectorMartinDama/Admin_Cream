@@ -1,12 +1,5 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-<!-- barra superior -->
-<app-navbar></app-navbar>
-
-
-
-<!-- barra lateral -->
-<hr class="separador">
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : '' ">
     <div class="logoContainer">
         <button class="logo" (click)="toggleCollapsed()">P</button>
@@ -15,15 +8,35 @@
             <i class='bx bx-x'></i>
         </button>
     </div>
+    
+    
+
     <ul class="sidenav-nav">
+        <span style="margin-top: 24px;"></span>
         <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.routerLink]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="sidenav-nav-link" (click)="handleClick(data)"  *ngIf="data.items && data.items.length > 0">
+                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+                <i *ngIf="data.items && collapsed"  class="menu-collapsed-icon"
+                    [ngClass]="!data.expanded ? 'bx bx-chevron-right' : 'bx bx-chevron-down'"
+                ></i>
+            </a>
+
+            <a class="sidenav-nav-link" *ngIf="!data.items || (data.items && data.items.length === 0)"  [routerLink]="[data.routerLink]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <i class="sidenav-link-icon" [class]="data.icon"></i>
                 <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
             </a>
-            <app-sublevel-menu [data]="data" [collapsed]="collapsed"></app-sublevel-menu>
+            <div *ngIf="collapsed && data.items && data.items.length > 0">
+                <app-sublevel-menu
+                    [data]="data"
+                    [collapsed]="collapsed"
+                    [multiple]="multiple"
+                    [expanded]="data.expanded"
+                ></app-sublevel-menu>
+            </div>
         </li>
-        <!-- boto de cerrar sesion -->
+
+        <!-- boton cerrar sesion  -->
         <li class="sidenav-nav-item">
             <a class="sidenav-nav-link" (click)="logout()">
                 <i class="sidenav-link-icon bx bx-log-out" ></i>
@@ -31,6 +44,5 @@
             </a>
         </li>
     </ul>
-    
 </div>
 

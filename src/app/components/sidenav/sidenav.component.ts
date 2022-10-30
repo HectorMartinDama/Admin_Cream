@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { INavbarData } from './helper';
 import { navbarData } from './nav-data';
 
 
@@ -37,6 +38,7 @@ export class SidenavComponent implements OnInit {
   collapsed= false;
   screenWidth= 0;
   navData= navbarData;
+  multiple: boolean= false;
 
 
   @HostListener('window:resize', ['$event'])
@@ -44,9 +46,7 @@ export class SidenavComponent implements OnInit {
     this.screenWidth = window.innerHeight;
     if(this.screenWidth <= 768){
       this.collapsed= false;
-
     }
-
   }
 
   ngOnInit(): void{
@@ -69,6 +69,17 @@ export class SidenavComponent implements OnInit {
   toggleCollapsed() : void{
     this.collapsed= !this.collapsed;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+  }
+
+  handleClick(item: INavbarData): void{
+    if(!this.multiple){
+      for(let modelItem of this.navData){
+        if(item !== modelItem && modelItem.expanded){
+          modelItem.expanded= false;
+        }
+      }
+    }
+    item.expanded = !item.expanded; 
   }
 
 
