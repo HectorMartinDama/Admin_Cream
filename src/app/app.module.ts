@@ -20,6 +20,10 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
 import { SublevelMenuComponent } from './components/sidenav/sublevel-menu.component';
 import { BuscarProductoComponent } from './components/buscar-producto/buscar-producto.component';
+import { AddProductoComponent } from './components/add-producto/add-producto.component';
+import { HomeComponent } from './components/home/home.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -30,7 +34,9 @@ import { BuscarProductoComponent } from './components/buscar-producto/buscar-pro
     SidenavComponent,
     BodyComponent,
     SublevelMenuComponent,
-    BuscarProductoComponent
+    BuscarProductoComponent,
+    AddProductoComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,11 @@ import { BuscarProductoComponent } from './components/buscar-producto/buscar-pro
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule
+
+
   ],
   providers: [CookieService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
@@ -7,8 +9,19 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BodyComponent {
 
+  
+
   @Input() collapsed= false;
   @Input() screenWidth=0;
+
+  isSidenavCollapsed= false;
+
+
+
+  
+
+
+  
 
 
   /* Cambio el estilo de la barra lateral dependiendo 

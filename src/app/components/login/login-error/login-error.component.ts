@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Injectable, Input } from "@angular/core";
 
 @Component({
     selector: 'app-login-error',

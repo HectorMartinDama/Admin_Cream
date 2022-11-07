@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'; // peticiones http
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service'; // cookies service
 // services
 import { LoginService } from 'src/app/services/login.service';
 
@@ -17,8 +16,10 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginComponent {
 
   error: Error | null = null
+  userName: String | null= null
+  userEmail: String | null= null
 
-  constructor(private http: HttpClient, private loginSvc: LoginService, private cookieService: CookieService, private router: Router){}
+  constructor(private http: HttpClient, private loginSvc: LoginService, private router: Router){}
 
   // Controla que todos los campos del formulario son validos
   public formValidator= new FormGroup({
@@ -38,11 +39,12 @@ export class LoginComponent {
         this.router.navigate(['/dashboard'])
       },
       error: error =>{
-        this.error= error.error.errors[0].msg;
+        this.error= error.error.error;
       }
     })
   }
 
+  // Prueba para ver si funciona.
   newProduct(){
     this.http.post<any>('http://localhost:3000/api/products/createProduct', {model: "NikeRojas", brand: "Adias", uid: "32423434D"
     }).subscribe({
@@ -60,21 +62,4 @@ export class LoginComponent {
    this.loginSvc.logOut()
   }
 
-
-
-  
-
-
-
-  
-
-  
-
-  
-
-  
-
-    
-
-  
 }

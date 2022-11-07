@@ -1,5 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, HostListener, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { INavbarData } from './helper';
 import { navbarData } from './nav-data';
@@ -40,6 +41,9 @@ export class SidenavComponent implements OnInit {
   navData= navbarData;
   multiple: boolean= false;
 
+  @Input()
+    userName: any;
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any){
@@ -51,6 +55,7 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void{
     this.screenWidth = window.innerHeight;
+    this.infoUser()
   }
 
 
@@ -84,10 +89,13 @@ export class SidenavComponent implements OnInit {
 
 
   
-
   // cierra la sesión actual
   logout(){
     this.loginSvc.logOut()
+  }
+
+  async infoUser(){
+   this.userName= await this.loginSvc.infoUserName()
   }
 
   
