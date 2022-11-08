@@ -55,7 +55,6 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void{
     this.screenWidth = window.innerHeight;
-    this.infoUser()
   }
 
 
@@ -94,9 +93,7 @@ export class SidenavComponent implements OnInit {
     this.loginSvc.logOut()
   }
 
-  async infoUser(){
-   this.userName= await this.loginSvc.infoUserName()
-  }
+  
 
   
   

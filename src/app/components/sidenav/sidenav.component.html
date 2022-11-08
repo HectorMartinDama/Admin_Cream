@@ -1,6 +1,8 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : '' ">
+<nav class="col-1">
+    <p>Menu NAV</p>
+    <!-- <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : '' ">
     <div class="logoContainer">
         <a (click)="toggleCollapsed()"><i *ngIf="!collapsed" class='logo bx bx-menu'></i></a>
         <div class="userName" @fadeInout *ngIf="collapsed">UsuarioPrueba</div>
@@ -36,13 +38,17 @@
             </div>
         </li>
 
-        <!-- boton cerrar sesion  -->
-        <li class="sidenav-nav-item">
-            <a class="sidenav-nav-link" (click)="logout()">
-                <i class="sidenav-link-icon bx bx-log-out" ></i>
-                <span class="sidenav-link-text" @fadeInout *ngIf="collapsed">Logout</span>
-            </a>
-        </li>
+         boton cerrar sesion  -->
+    <!--
+        <div class="logout">
+            <li class="sidenav-nav-item">
+                <a class="sidenav-nav-link" (click)="logout()">
+                    <i class="sidenav-link-icon bx bx-log-out" ></i>
+                    <span class="sidenav-link-text" @fadeInout *ngIf="collapsed">Logout</span>
+                </a>
+            </li>
+        </div>
     </ul>
-</div>
-
+    </div>
+    -->
+</nav>

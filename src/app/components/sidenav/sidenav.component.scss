@@ -1,4 +1,18 @@
 
+body { 
+    background: red;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row; /*Flex direction - Row para crear las dos filas NAV | CONTENIDO*/
+    margin: 20px;
+}
+
+.col-1 {
+    background: #e8d4d4;
+    width: 10%;
+}
+
+
 /* GUIA DE COLORES DE NAVBAR LATERAL 
     BACKGROUND: #EEF0F2
     LINEA-SEPARACION-LATERAL: #C6C6C6
@@ -25,6 +39,11 @@
     height: 100vh; // los otros 20 son de la barra superior.
     border-right: 1px solid #C6C6C6;
     border-top: 1px solid #C6C6C6;
+}
+
+.logout{
+    display: flex;
+    align-items: flex-end;
 }
 
 .logoContainer{

@@ -12,7 +12,7 @@ interface SideNavToggle{
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'CreamKICKS';
+  title = 'Cream Kicks';
 
 
   isSidenavCollapsed= false;

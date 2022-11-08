@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import {MatFormFieldModule} from '@angular/material/form-field';
+
 // animaciones del navegador
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // peticiones http
@@ -19,12 +20,10 @@ import { LoginErrorComponent } from './components/login/login-error/login-error.
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
 import { SublevelMenuComponent } from './components/sidenav/sublevel-menu.component';
-import { BuscarProductoComponent } from './components/buscar-producto/buscar-producto.component';
-import { AddProductoComponent } from './components/add-producto/add-producto.component';
-import { HomeComponent } from './components/home/home.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule} from '@angular/material/paginator';
-
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +33,8 @@ import { MatPaginatorModule} from '@angular/material/paginator';
     SidenavComponent,
     BodyComponent,
     SublevelMenuComponent,
-    BuscarProductoComponent,
-    AddProductoComponent,
-    HomeComponent
+    NotFoundComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +46,9 @@ import { MatPaginatorModule} from '@angular/material/paginator';
     MatFormFieldModule,
     HttpClientModule,
     MatTableModule,
-    MatPaginatorModule
-
-
+    MatPaginatorModule,
+    MatFormFieldModule
+    
   ],
   providers: [CookieService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

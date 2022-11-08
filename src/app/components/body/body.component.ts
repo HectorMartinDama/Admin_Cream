@@ -18,11 +18,6 @@ export class BodyComponent {
 
 
 
-  
-
-
-  
-
 
   /* Cambio el estilo de la barra lateral dependiendo 
     del tamanio de la pantalla.
