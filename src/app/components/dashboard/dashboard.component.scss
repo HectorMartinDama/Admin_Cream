@@ -1,6 +1,6 @@
 table{
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     border: 1px solid red;
 }
 
@@ -8,13 +8,45 @@ table{
     height: 100%;
 }
 
-
-.mat-paginator {
-     display: flex;
-     justify-content: center;
+// buscador
+.input{
+    height: 39px;
+    width: 80%;
+    border: 1px solid #C6C6C6;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: transparent;
+    margin-bottom: 25px;
+    padding-left: 55px;
 }
 
 
+// centra el icono dentro del input
+.inputSearch i{
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 25px;
+    color: #949AA2;
+}
+
+
+// placeholder del input
+::placeholder{
+    color: #949AA2;
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+
+// centra el paginator en el centro de la tabla
+.mat-paginator {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+// tamaño de la tabla
 .mat-form-field {
     font-size: 14px;
     width: 300px;

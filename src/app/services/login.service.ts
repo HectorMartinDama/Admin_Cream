@@ -12,7 +12,7 @@ export class LoginService {
   constructor(private router: Router) { }
 
 
-  // Cierra la sesion, borrando la cookie "session" que esta guardado el token.
+  // Cierra la sesion, borrando el localStorage "session" en el que esta guardado el token.
   logOut(){
     localStorage.removeItem('session')
     this.router.navigate(['/'])
@@ -21,8 +21,6 @@ export class LoginService {
   
 
 
-
-  
 
   
 }
