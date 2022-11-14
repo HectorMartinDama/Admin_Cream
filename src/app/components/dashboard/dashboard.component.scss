@@ -1,14 +1,57 @@
+
+/* Añadir un segundo elemento a la tabla
+    https://www.youtube.com/watch?v=q0aniMziFHI
+*/
+*{
+    font-size: 14px;
+}
+
+
 table{
     width: 80%;
     height: 80%;
     border: 1px solid red;
 }
 
-.table-container{
-    height: 100%;
+// color del la fila al pasar por ella.
+.mat-row:hover .mat-cell{
+    background-color: #EEF0F2;
 }
 
-// buscador
+
+
+.table-container{
+    height: 100%;
+    margin-left: 80px;
+}
+
+// centra el paginator en el centro de la tabla
+.mat-paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// tamaño de la tabla
+.mat-form-field {
+   font-size: 14px;
+   width: 300px;
+}
+
+// checkbox
+::ng-deep .custom-frame {
+    & .mat-checkbox-background,
+    .mat-checkbox-frame {
+        border-radius: 4px;
+        width: 20px;
+        height: 20px;
+        border: 1.5px solid black;
+    }
+}
+
+
+
+//-----------------------Estilos del bucador-----------------
 .input{
     height: 39px;
     width: 80%;
@@ -20,7 +63,6 @@ table{
     padding-left: 55px;
 }
 
-
 // centra el icono dentro del input
 .inputSearch i{
     position: absolute;
@@ -30,7 +72,6 @@ table{
     color: #949AA2;
 }
 
-
 // placeholder del input
 ::placeholder{
     color: #949AA2;
@@ -39,15 +80,4 @@ table{
 }
 
 
-// centra el paginator en el centro de la tabla
-.mat-paginator {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-}
 
-// tamaño de la tabla
-.mat-form-field {
-    font-size: 14px;
-    width: 300px;
-}

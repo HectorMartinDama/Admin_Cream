@@ -3,7 +3,7 @@
 
 // centra el contenedor
 .container{
-    min-height: 100vh; // 100% de la pantalla
+    min-height: 100vh; // 100% ancho de la pantalla
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +22,7 @@ h1{
     margin-bottom: 80px;
 }
 
-// estilos de link
+// estilos de link/boton
 a{
     text-decoration: none;
     background: black;

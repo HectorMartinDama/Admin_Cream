@@ -1,4 +1,8 @@
 
+
+<!-- Barra superior -->
+<app-navbar></app-navbar>
+
 <!-- Barra navegacion lateral -->
 <app-sidenav></app-sidenav>
 
@@ -12,12 +16,32 @@
     <input class="input" matInput (keyup)="applyFilter($event)" placeholder="Filtrar Productos" #input>
 </div>
 
-
-
+<!-- Tabla -->
 <div class="table-container" tabindex="0">
-    <table mat-table [dataSource]="data" matSort>
-
+    <table mat-table [dataSource]="data">
         
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox class="custom-frame" (change)="$event ? toggleAllRows() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox class="custom-frame" (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+      
+
+  
         <!-- Model Column -->
         <ng-container matColumnDef="model">
             <th mat-header-cell *matHeaderCellDef>Model</th>
@@ -37,17 +61,17 @@
         </ng-container>
 
 
+        <tr mat-header-row *matHeaderRowDef="columnsDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsDisplay;"
+            (click)="selection.toggle(row)">
     
-        <tr mat-header-row *matHeaderRowDef="columnsDisplay; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row ; columns: columnsDisplay" ></tr>
-
-
+        
         <!-- Cuando no hay ningun resultado, agrega una fifla con ese mensaje -->
         <tr *matNoDataRow>
             <td class="mat-cell" colspan="4">No se ha encontrado ningún producto "{{input.value}}"</td>
         </tr>
         
     </table>
-    <mat-paginator [pageSize]="15" aria-label="Select page of user"></mat-paginator>
+    <mat-paginator [length]="10"  aria-label="Select page of user"></mat-paginator>
 </div>
 

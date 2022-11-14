@@ -7,7 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar'; 
 // animaciones del navegador
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // peticiones http
@@ -24,6 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     BodyComponent,
     SublevelMenuComponent,
     NotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +51,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatFormFieldModule
-    
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatToolbarModule
   ],
   providers: [CookieService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
