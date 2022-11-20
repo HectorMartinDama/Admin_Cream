@@ -13,7 +13,7 @@ export class DashboardGuard implements CanActivateChild {
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const session= localStorage.getItem('session')
     if(session == undefined){
-      this.router.navigate(['/'])
+      this.router.navigateByUrl('http://localhost:4200/');
       return false;
     }
     return true;

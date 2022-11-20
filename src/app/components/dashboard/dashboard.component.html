@@ -12,8 +12,8 @@
 
 <!-- Buscador -->
 <div class="inputSearch">
-    <i class='bx bx-search'></i>
-    <input class="input" matInput (keyup)="applyFilter($event)" placeholder="Filtrar Productos" #input>
+        <i class='bx bx-search icon'></i>
+        <input class="input" matInput (keyup)="applyFilter($event)" placeholder="Filtrar Productos" #input>
 </div>
 
 <!-- Tabla -->
@@ -39,6 +39,7 @@
             </td>
         </ng-container>
 
+        
       
 
   
@@ -72,6 +73,6 @@
         </tr>
         
     </table>
-    <mat-paginator [length]="10"  aria-label="Select page of user"></mat-paginator>
+    <mat-paginator [pageSize]="10" aria-label="Select page of user"></mat-paginator>
 </div>
 

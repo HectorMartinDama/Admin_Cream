@@ -8,8 +8,8 @@
 
 
 table{
-    width: 80%;
-    height: 80%;
+    width: 90%;
+    height: 90%;
     border: 1px solid red;
 }
 
@@ -19,10 +19,11 @@ table{
 }
 
 
-
+// centra la tabla
 .table-container{
-    height: 100%;
-    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 // centra el paginator en el centro de la tabla
@@ -52,6 +53,14 @@ table{
 
 
 //-----------------------Estilos del bucador-----------------
+
+// centra el buscador
+.inputSearch{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .input{
     height: 39px;
     width: 80%;
@@ -60,23 +69,23 @@ table{
     font-size: 16px;
     outline: transparent;
     margin-bottom: 25px;
-    padding-left: 55px;
+    padding-left: 12px;
 }
 
 // centra el icono dentro del input
-.inputSearch i{
+.icon {
     position: absolute;
     margin-top: 10px;
-    margin-left: 20px;
     font-size: 25px;
     color: #949AA2;
+    font-size: 22px;
+    margin-right: 50px;
+
 }
 
 // placeholder del input
 ::placeholder{
     color: #949AA2;
-    margin-right: 12px;
-    margin-left: 12px;
 }
 
 

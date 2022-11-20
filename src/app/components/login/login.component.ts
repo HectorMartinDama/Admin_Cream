@@ -33,10 +33,10 @@ export class LoginComponent {
 
   
   login(){
-    this.http.post<any>('http://localhost:3000/api/users/login', this.formValidator.value).subscribe({
+    this.loginSvc.login_admin(this.formValidator.value).subscribe({
       next: data =>{
         localStorage.setItem('session', data.token) // guardo el token.
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']);
       },
       error: error =>{
         this.error= error.error.error;
@@ -44,18 +44,9 @@ export class LoginComponent {
     })
   }
 
-  // Prueba para ver si funciona.
-  newProduct(){
-    this.http.post<any>('http://localhost:3000/api/products/createProduct', {model: "NikeRojas", brand: "Adias", uid: "32423434D"
-    }).subscribe({
-      next: data =>{
-        console.log('Registro Completado')
-      },
-      error: error =>{
-        console.log(error)
-      }
-    })
-  }
+  
+
+ 
 
   
   logOut(){

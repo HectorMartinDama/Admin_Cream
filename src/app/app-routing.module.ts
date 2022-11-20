@@ -26,7 +26,7 @@ const routes: Routes = [
       }
     ]  
   },
-  { path: '', component: LoginComponent, canActivate: [NotLoginGuard]},
+  { path: '', component: LoginComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
