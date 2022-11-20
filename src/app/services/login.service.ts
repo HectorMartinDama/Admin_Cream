@@ -17,8 +17,8 @@ export class LoginService {
 
   // Cierra la sesion, borrando el localStorage "session" en el que esta guardado el token.
   logOut(){
-    localStorage.removeItem('session')
-    this.router.navigate(['/'])
+    localStorage.removeItem('session');
+    this.router.navigate(['/']);
   }
 
   login_admin(data): Observable<any>{
@@ -35,16 +35,14 @@ export class LoginService {
     const token= localStorage.getItem('session');
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(token);
+
     
-    if(!decodedToken || !token){
+    if(!token){
+      return false;
+    }else if(!decodedToken){
+      localStorage.removeItem('session');
       return false;
     }
     return true;
   }
-
-  
-
-
-
-  
 }
