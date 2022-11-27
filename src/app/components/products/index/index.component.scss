@@ -1,0 +1,57 @@
+
+*{
+    font-size: 16px;
+}
+
+// centra la tabla
+.table-container{
+    height: calc(100vh - 75px); // le resto la parte de la barra superior.
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+// centra el paginator
+.mat-paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// centra el buscador (input)
+.inputSearch{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+input{
+    height: 39px;
+    width: 600px;
+    border: 1px solid #C6C6C6;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: transparent;
+    padding-left: 12px;
+    background: white;
+}
+
+
+// placeholder del input
+::placeholder{
+    color: #949AA2;
+}
+
+table{
+    width: 700px;
+}
+
+
+// color del la fila al pasar por ella.
+.mat-row:hover .mat-cell{
+    background-color: white;
+}
+
+

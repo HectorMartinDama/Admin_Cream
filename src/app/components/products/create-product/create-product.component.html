@@ -1,0 +1,86 @@
+<!-- Barra superior -->
+<app-navbar></app-navbar>
+<!-- Barra navegacion lateral -->
+<app-sidenav></app-sidenav>
+
+
+
+<div class="form-container">
+    <form (ngSubmit)="createProduct()" [formGroup]="formCreateProduct">
+
+        <div class="firstGroup">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Modelo</mat-label>
+                    <input matInput formControlName="nombre">
+                    <mat-error *ngIf="formCreateProduct
+                        .get('nombre')?.touched && formCreateProduct
+                        .get('nombre')?.errors?.['required']">
+                        Modelo obligatario
+                      </mat-error>
+                </mat-form-field>
+           </div>
+    
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Marca</mat-label>
+                    <input matInput formControlName="marca">
+                    <mat-error *ngIf="formCreateProduct
+                        .get('marca')?.touched && formCreateProduct
+                        .get('marca')?.errors?.['required']">
+                        Marca obligatorio
+                      </mat-error>
+                </mat-form-field>
+            </div>
+            
+        
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="id">
+                    <mat-error *ngIf="formCreateProduct
+                        .get('id')?.touched && formCreateProduct
+                        .get('id')?.errors?.['required']">
+                        ID obligatorio
+                      </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+          <!-- Imagen de producto -->
+        <mat-card class="image-card">
+            <mat-card-header>
+                <mat-card-subtitle>Selecciona una imagen</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="imgSelect">
+            <mat-card-actions>
+                <input type="file" (change)="fileChangeEvent($event)" formControlName="portada">
+            </mat-card-actions>
+        </mat-card>
+
+
+       
+        
+        
+       
+
+        
+       
+        <!-- Boton que hace la petición -->
+        <button mat-button type="submit" [disabled]="formCreateProduct
+            .invalid">Crear producto</button>
+        
+
+    </form>
+
+   
+    
+
+
+</div>
+
+
+  
+  
+
