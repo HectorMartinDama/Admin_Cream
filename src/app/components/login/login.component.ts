@@ -25,7 +25,7 @@ export class LoginComponent {
   public formValidator= new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
-  })
+  });
 
   //https://stackblitz.com/edit/angular-mjkpy9?file=src%2Fapp%2Fmessage.service.ts
   // https://jasonwatmore.com/post/2020/07/06/angular-10-communicating-between-components-with-observable-subject
@@ -36,6 +36,7 @@ export class LoginComponent {
     this.loginSvc.login_admin(this.formValidator.value).subscribe({
       next: data =>{
         localStorage.setItem('session', data.token) // guardo el token.
+        localStorage.setItem('idSession', data._id) // guardo el id de la session
         this.router.navigate(['/dashboard']);
       },
       error: error =>{
@@ -48,7 +49,7 @@ export class LoginComponent {
 
  
 
-  
+  // cierra session
   logOut(){
    this.loginSvc.logOut()
   }

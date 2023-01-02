@@ -3,36 +3,54 @@ import { INavbarData } from "./helper";
 export const navbarData : INavbarData[] = [
     { 
         label: 'Inicio',
-        icon: 'bx bx-home-alt-2',
+        icon: 'home-outline',
         routerLink: ''
     },
     {
-        label: 'Pedidos',
-        icon: 'bx bx-package',
-        routerLink: 'dashboard'
-    },
-    {
         label: 'Productos',
-        icon: 'bx bxl-deezer',
+        icon: 'archive-outline',
         routerLink: '',
         items: [
             {
-                routerLink: '',
+                routerLink: '/productos/registro',
                 label: 'Agregar Producto'
 
             },
             {
-                routerLink: '',
+                routerLink: '/products',
                 label: 'Buscar Producto'
             }
-
         ]
-
     },
     {
-        label: 'Clientes',
-        icon: 'bx bx-user',
-        routerLink: ''
+        label: 'Cupones',
+        icon: 'ticket-outline',
+        routerLink: '/cupones/registro',
+        items: [
+            {
+                routerLink: '/cupones/registro',
+                label: 'Agregar Cupon'
+            },
+            {
+                routerLink: '/cupones',
+                label: 'Buscar Cupon'
+            }
+        ]
+    },
+    {
+        label: 'Añadir',
+        icon: 'add-outline',
+        routerLink: '/cupones/registro',
+        items: [
+            {
+                routerLink: '/marcas/registro',
+                label: 'Agregar Marca'
+            },
+            {
+                routerLink: '/cupones',
+                label: 'Agregar Talla'
+            }
+        ]
     }
 ];
 

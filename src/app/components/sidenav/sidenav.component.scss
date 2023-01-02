@@ -34,9 +34,9 @@ body {
     transition: all .5s ease;
     position: fixed;
     z-index: 1;
-    top: 0;
+    bottom: 0;
     width: 5rem; // para mobile
-    height: 100vh; // los otros 20 son de la barra superior.
+    height: calc(100vh - 75px); // le quito 75px por la barra superior.
     border-right: 1px solid #C6C6C6;
     border-top: 1px solid #C6C6C6;
 }

@@ -18,11 +18,17 @@ export class LoginService {
   // Cierra la sesion, borrando el localStorage "session" en el que esta guardado el token.
   logOut(){
     localStorage.removeItem('session');
+    localStorage.removeItem('idSession');
     this.router.navigate(['/']);
   }
 
   login_admin(data): Observable<any>{
     return this.http.post('http://localhost:4201/api/login_admin', data);
+  }
+
+  // Obtiene informacion del usuario que ha iniciado session.
+  getInfoAdmin(id){
+    return this.http.get('http://localhost:4201/api/obtenerAdmin/'+id);
   }
 
   // Devuelve el token.
@@ -36,7 +42,6 @@ export class LoginService {
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(token);
 
-    
     if(!token){
       return false;
     }else if(!decodedToken){

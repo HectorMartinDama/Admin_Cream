@@ -23,7 +23,9 @@ table{
 .table-container{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    
 }
 
 // centra el paginator en el centro de la tabla

@@ -7,6 +7,10 @@
 
 
 <div class="form-container">
+
+    <!-- Boton para generar -->
+    <button mat-button (click)="generarCodigo()">Generar codigo</button>
+
     <form (ngSubmit)="createCupon()" [formGroup]="formCreateCupon">
 
         <div class="firstGroup">
@@ -18,7 +22,7 @@
                     .get('codigo')?.touched && formCreateCupon
                     .get('codigo')?.errors?.['required']">
                     Código obligatario
-                    </mat-error>
+                </mat-error>
             </mat-form-field>
          
             <!-- Tipo -->
@@ -34,6 +38,11 @@
                     Tipo obligatorio
                     </mat-error>
             </mat-form-field>
+
+            
+
+
+            
         </div>
 
         <!-- Valor -->

@@ -7,21 +7,21 @@
 <app-sidenav></app-sidenav>
 
 
+<!--
 
 
-
-<!-- Buscador -->
+<! Buscador --
 <div class="inputSearch">
-        <i class='bx bx-search icon'></i>
-        <input class="input" matInput (keyup)="applyFilter($event)" placeholder="Filtrar Productos" #input>
+    <i class='bx bx-search icon'></i>
+    <input class="input" matInput (keyup)="applyFilter($event)" placeholder="Filtrar Productos" #input>
 </div>
 
-<!-- Tabla -->
+ Tabla --
 <div class="table-container" tabindex="0">
     <table mat-table [dataSource]="data">
         
 
-        <!-- Checkbox Column -->
+        <!- Checkbox Column --
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
                 <mat-checkbox class="custom-frame" (change)="$event ? toggleAllRows() : null"
@@ -43,19 +43,19 @@
       
 
   
-        <!-- Model Column -->
+        <!- Model Column --
         <ng-container matColumnDef="model">
             <th mat-header-cell *matHeaderCellDef>Model</th>
             <td mat-cell *matCellDef="let element">{{element.model}}</td>
         </ng-container>
     
-        <!-- Brand Column -->
+        <!- Brand Column -- >
         <ng-container matColumnDef="brand">
             <th mat-header-cell *matHeaderCellDef>Brand</th>
             <td mat-cell *matCellDef="let element">{{element.brand}}</td>
         </ng-container>
     
-        <!-- UID Column -->
+        <!- UID Column --
         <ng-container matColumnDef="uid">
             <th mat-header-cell *matHeaderCellDef>UID</th>
             <td mat-cell *matCellDef="let element">{{element.uid}}</td>
@@ -67,7 +67,7 @@
             (click)="selection.toggle(row)">
     
         
-        <!-- Cuando no hay ningun resultado, agrega una fifla con ese mensaje -->
+        <!- Cuando no hay ningun resultado, agrega una fifla con ese mensaje 
         <tr *matNoDataRow>
             <td class="mat-cell" colspan="4">No se ha encontrado ningún producto "{{input.value}}"</td>
         </tr>
@@ -76,3 +76,4 @@
     <mat-paginator [pageSize]="10" aria-label="Select page of user"></mat-paginator>
 </div>
 
+-->

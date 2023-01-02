@@ -12,7 +12,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class DashboardComponent {
 
-  
+  /*
   columnsDisplay: string[]= ['select', 'model', 'brand', 'uid']; // nombre columnas
   data: any; // datos de la tabla
   selection: any; 
@@ -54,7 +54,7 @@ export class DashboardComponent {
 
 
   /* Selecciona todas las filas si no estan todas seleccionadas; de lo contrario
-      borra la seleccion. */
+      borra la seleccion. 
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
@@ -70,4 +70,6 @@ export class DashboardComponent {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.model + 1}`;
   }
+}
+*/
 }

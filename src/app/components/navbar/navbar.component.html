@@ -1,3 +1,10 @@
 <mat-toolbar>
     <a href="/"><img src="assets/logo_434x126.svg" alt="logo de la marca"></a>
+    <div class="menu-container">
+        <button mat-button [matMenuTriggerFor]="menu">UsuarioPrueba</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Configuración</button>
+            <button mat-menu-item>Cerrar sesión</button>
+        </mat-menu>
+    </div>
 </mat-toolbar>

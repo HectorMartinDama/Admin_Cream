@@ -2,6 +2,7 @@ import { Directive, HostBinding, HostListener, Output, Sanitizer } from '@angula
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { EventEmitter } from '@angular/core';
 import { FileHandle } from './file-handle';
+import { NotificationService } from '../services/notification.service';
 
 
 @Directive({
@@ -13,9 +14,7 @@ export class DragDirective {
   @HostBinding("style.background") private background= "#eee";
   
 
-  constructor(private sanitizer: DomSanitizer) { }
-
-
+  constructor(private sanitizer: DomSanitizer, private notificationSvc: NotificationService) { }
 
 
   @HostListener("dragover", ["$event"])
@@ -43,10 +42,17 @@ export class DragDirective {
     for (let i = 0; i < evt.dataTransfer.files.length; i++) {
       const file= evt.dataTransfer.files[i];
       const url= this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
-      files.push({file, url});
-    }
-    if(files.length > 0){
-      this.files.emit(files);
+      // compruebo que la img es valida.
+      if(file.size <= 4000000){
+        if(file.type == 'image/png' || file.type == 'image/jpg' || file.type == 'image/jpeg' || file.type == 'image/webp'){
+          files.push({file, url});
+          this.files.emit(files);     
+        }else{
+          this.notificationSvc.openSnackBar('El formato '+file.type+' no es compatible.', 'close');
+        }
+      }else{
+        this.notificationSvc.openSnackBar('Tamaño maximo de la imagen es de 4MB.', 'close');
+      }   
     }
   }
 

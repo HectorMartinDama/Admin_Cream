@@ -1,6 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, MinLengthValidator, MinValidator, Validators } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { timeStamp } from 'console';
+import { NotificationService } from 'src/app/services/notification.service';
+import { MarcaService } from 'src/app/services/marca.service';
+
+export interface Talla{
+  value: string
+}
 
 @Component({
   selector: 'app-create-product',
@@ -11,16 +21,32 @@ export class CreateProductComponent implements OnInit {
 
 
   // variables
+  separatorKeysCodes= [ENTER, COMMA] as const;
+  listaMarcas: Array<any>=[];
+  listaTallas: string[]= ['36', '37', '37.5', '38', '38.5', '39', '39.5', '40', '40.5', '41', '41.5', '42'];
   formCreateProduct!: FormGroup;
   file : File = undefined;
-  imgSelect: any | ArrayBuffer= ''; // imagen por defecto.
-
-  constructor(private fb: FormBuilder, private productSvc: ProductService) { }
+  imgSelect: any | ArrayBuffer= ''; // img por defecto.
 
 
-  // inicia la validacion.
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private productSvc: ProductService, private router: Router, private notificationSvc: NotificationService, private marcaSvc: MarcaService) { }
+
+ 
+
+
+
+
+
+  
+  ngOnInit(): void { // inicia la validacion.
     this.formCreateProduct= this.initForm();
+    this.formCreateProduct.patchValue({publicado: false});
+    // recupero las marcas disponibles
+    this.marcaSvc.allMarcas().subscribe(x =>{
+      x.forEach(element =>{
+        this.listaMarcas.push(element.nombre);
+      })
+    })
   }
 
 
@@ -29,20 +55,28 @@ export class CreateProductComponent implements OnInit {
     return this.fb.group({
       nombre: ['', [Validators.required]],
       marca: ['', [Validators.required]],
-      id: ['', [Validators.required]],
+      sku: ['', [Validators.required]],
+      stock: ['', [Validators.required]],
+      tallas: ['', [Validators.required]],
+      precioCompra: ['', [Validators.required]],
+      precioVenta: ['', [Validators.required]],
+      publicado: ['', []],
       portada: ['', [Validators.required]]
     });
   }
+
+
+  
 
   // crea un producto
   createProduct(){
     this.productSvc.createProduct(this.formCreateProduct.value, this.file).subscribe({
       next: data =>{
-        console.log(data);
-        console.log(this.formCreateProduct.value);
+        this.notificationSvc.openSnackBar(data.message, 'cerrar');
+        this.router.navigate(['/products']);
       },
       error: error =>{
-        console.log(error);
+        this.notificationSvc.openSnackBar(error.error.message,'cerrar');
       }
     });
   }
@@ -54,7 +88,7 @@ export class CreateProductComponent implements OnInit {
     if(event.target.files && event.target.files[0]){ // comprueba si es una img.
       file = <File>event.target.files[0];
     }else{
-      console.log('error al subir la imagen')
+      this.notificationSvc.openSnackBar('Error al subir la imagen.', 'cerrar');
     }
     // valida que la imagen pese menos de 4MB.
     if(file.size <= 4000000){ // valida el tipo de img.
@@ -72,12 +106,11 @@ export class CreateProductComponent implements OnInit {
 
       }else{
         this.formCreateProduct.patchValue({inputPortada: 'Seleccionar imagen'}); // si la img no es valida reseteo el nombre del input.
-        console.log('Formato no compatible. Recuerda (png, webp, jpg o jpeg).');
+        this.notificationSvc.openSnackBar('Formato no compatible. Recuerda (png, webp, jpg o jpge).', 'cerrar');
       }
     }else{
-      console.log('La imagen no debe pasar de 4MB.')
+      this.notificationSvc.openSnackBar('La imagen no debe pasar de 4MB.', 'cerrar');
     }
     console.log(this.file);
   }
-
 }
