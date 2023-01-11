@@ -1,0 +1,28 @@
+.example-card {
+    max-width: 400px;
+    min-width: 400px;
+}
+
+
+// centra la carta
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.card-boy{
+    display: flex;
+    flex-direction: row;
+}
+
+
+// alinea los botones a la derecha
+mat-card-actions{
+    display: flex;
+    justify-content: right;
+}
+  
+  

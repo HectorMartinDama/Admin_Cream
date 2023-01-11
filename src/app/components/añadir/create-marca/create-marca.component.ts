@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { MarcaModel } from 'src/app/models/marca.interface';
 import { MarcaService } from 'src/app/services/marca.service';
 import { NotificationService } from 'src/app/services/notification.service';
-
+import * as marcaActions from '../../../state/actions/marca.actions';
 @Component({
   selector: 'app-create-marca',
   templateUrl: './create-marca.component.html',
@@ -15,7 +17,7 @@ export class CreateMarcaComponent implements OnInit {
   formCreateMarca!:FormGroup;
 
 
-  constructor(private fb: FormBuilder, private marcaSvc: MarcaService, private router: Router, private notificationSvc: NotificationService) { }
+  constructor(private fb: FormBuilder, private store: Store<any>, private router: Router, private notificationSvc: NotificationService) { }
 
   ngOnInit(): void {
     this.formCreateMarca= this.initForm();
@@ -29,17 +31,8 @@ export class CreateMarcaComponent implements OnInit {
   };
 
   createMarca(){
-    this.marcaSvc.createMarca(this.formCreateMarca.value).subscribe({
-      next: data =>{
-        // limpio el input
-        this.formCreateMarca.reset();
-        this.notificationSvc.openSnackBar(data.message, 'cerrar');
-      },
-      error: error =>{
-        this.formCreateMarca.reset();
-        this.notificationSvc.openSnackBar(error.error.message, 'cerrar');
-      } 
-    })
+    const marca: MarcaModel= this.formCreateMarca.value;
+    this.store.dispatch(marcaActions.createMarca({marca}));
   };
 
 

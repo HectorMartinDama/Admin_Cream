@@ -5,6 +5,9 @@
 
 
 <!-- Se cargar cuando no se ha encontrado ningun producto -->
+<app-not-found-item *ngIf="product== undefined" name="producto" ruta="/products"></app-not-found-item>
+
+
 <ng-container *ngIf="product == undefined">
     <h1 style="text-align: center;">Producto no encontrado</h1>
 </ng-container>

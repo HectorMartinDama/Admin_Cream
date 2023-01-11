@@ -1,0 +1,33 @@
+<!-- Barra superior -->
+<app-navbar></app-navbar>
+<!-- Barra navegacion lateral -->
+<app-sidenav></app-sidenav>
+
+
+<div class="container">
+
+
+    <mat-card class="example-card" *ngFor="let item of contactos$ | async">
+      <div class="card-boy">
+        <mat-card-header>
+          <mat-card-title>{{item.nombre}}</mat-card-title>
+          <mat-card-subtitle>{{item.creado | date }}</mat-card-subtitle>
+          <mat-card-subtitle>{{item.estado}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{item.asunto}}</p>
+          <p>{{item.mensaje}}</p>
+        </mat-card-content>
+
+      </div>  
+        <mat-card-actions>
+          <a href="mailto:{{item.email}}">{{item.email}}</a>
+          <button mat-button (click)="openDialog(item.nombre, item._id)">Cerrar mensaje</button>
+        </mat-card-actions>
+        <mat-card-footer>
+          <!--<mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+        </mat-card-footer>
+    </mat-card>
+</div>
+
+  

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http'; // peticiones http
-import { Router } from '@angular/router';
-// services
-import { LoginService } from 'src/app/services/login.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { LoginModel } from 'src/app/models/auth.interface';
+import * as authSelectors from '../../state/selectors/auth.selectors';
+import * as authActions from '../../state/actions/auth.actions';
 
 
 
@@ -15,11 +16,14 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent {
 
-  error: Error | null = null
-  userName: String | null= null
-  userEmail: String | null= null
+  //error: Error | null = null
+  isLoading$: Observable<boolean>;
+  isError$: Observable<string | null >;
 
-  constructor(private http: HttpClient, private loginSvc: LoginService, private router: Router){}
+  constructor(private _store: Store<any>){
+    this.isLoading$= this._store.select(authSelectors.selectIsLoadingLogin)
+    this.isError$= this._store.select(authSelectors.selectIsErrorLogin);
+  }
 
   // Controla que todos los campos del formulario son validos
   public formValidator= new FormGroup({
@@ -27,12 +31,18 @@ export class LoginComponent {
     password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
   });
 
-  //https://stackblitz.com/edit/angular-mjkpy9?file=src%2Fapp%2Fmessage.service.ts
-  // https://jasonwatmore.com/post/2020/07/06/angular-10-communicating-between-components-with-observable-subject
-  // https://jasonwatmore.com/post/2019/11/21/angular-http-post-request-examples
+
+  login(){
+    const data: LoginModel= this.formValidator.value;
+    this._store.dispatch(authActions.loginAction({data}));
+  }
+
+  setErrorLogin(message: string){
+    this._store.dispatch(authActions.loginErrorAction({message}));
+  }
 
   
-  login(){
+  /*ogin(){
     this.loginSvc.login_admin(this.formValidator.value).subscribe({
       next: data =>{
         localStorage.setItem('session', data.token) // guardo el token.
@@ -43,15 +53,15 @@ export class LoginComponent {
         this.error= error.error.error;
       }
     })
-  }
+  }*/
 
   
 
  
 
   // cierra session
-  logOut(){
+  /*logOut(){
    this.loginSvc.logOut()
-  }
+  }*/
 
 }

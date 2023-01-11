@@ -26,13 +26,10 @@ export class ProductService {
     const fd= new FormData();
     fd.append('nombre', data.nombre);
     fd.append('marca', data.marca);
-    fd.append('talla', data.talla);
     fd.append('sku', data.sku);
-    fd.append('stock', data.stock);
-    fd.append('tienda', data.tienda);
     fd.append('precioCompra', data.precioCompra);
     fd.append('precioVenta', data.precioVenta);
-    fd.append('tallas', data.tallas);
+    fd.append('tallaStockArray',  JSON.stringify(data.tallaStockArray));
     fd.append('publicado', data.publicado);
     fd.append('portada', file); // añado el archivo de la img al campo portada.
     return this.http.post('http://localhost:4201/api/products/createProduct', fd);

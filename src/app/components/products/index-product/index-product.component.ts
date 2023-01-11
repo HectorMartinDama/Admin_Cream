@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { product, ProductService } from 'src/app/services/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { Workbook } from 'exceljs';
 import * as fs from "file-saver";
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectListProductos, selectLoadingProductos } from 'src/app/state/selectors/producto.selectors';
+import { loadProductos } from 'src/app/state/actions/producto.actions';
+import { ProductoModel } from 'src/app/models/producto.interface';
 
 // https://stackoverflow.com/questions/17826082/how-to-delete-multiple-ids-in-mongodb
 
@@ -18,6 +23,8 @@ export class IndexProductComponent implements OnInit {
 
 
   // Variables
+  loading$: Observable<boolean>= new Observable()
+  productos$: Observable<any>= new Observable()
   columnsDisplay: string[]= ['portada', 'nombre', 'marca', 'stock', 'funciones']; // nombre de las columnas
   data: any;
   searchValue: string; // guarda el valor del input.
@@ -25,14 +32,21 @@ export class IndexProductComponent implements OnInit {
   url: any;
   productos_excel: Array<any>= [];
 
-  constructor(private productSvc: ProductService, public dialog: MatDialog) {
+  constructor(private productSvc: ProductService, public dialog: MatDialog, private store: Store<any>) {
     this.url= 'http://localhost:4201/api/products/';
    }
 
-  // guarda los datos en la variable data.
   ngOnInit(): void {
-    this.productSvc.allProducts().subscribe(x =>{
-      this.data= new MatTableDataSource<product>(x);
+    this.loading$= this.store.select(selectLoadingProductos);
+    this.store.dispatch(loadProductos());
+    this.printProductos();
+  }
+
+  // pinta la tabla
+  printProductos(): void{
+    this.productos$= this.store.select(selectListProductos);
+    this.productos$.subscribe(x =>{
+      this.data= new MatTableDataSource<ProductoModel>(x);
       this.data.paginator= this.paginator;
       x.forEach(element =>{ // rellena el array para el excel
         this.productos_excel.push({

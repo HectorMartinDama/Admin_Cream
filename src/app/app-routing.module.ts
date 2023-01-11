@@ -18,7 +18,10 @@ import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupo
 import { UpdateCuponComponent } from './components/cupones/update-cupon/update-cupon.component';
 import { GaleriaProductComponent } from './components/products/galeria-product/galeria-product.component';
 import { CreateMarcaComponent } from './components/añadir/create-marca/create-marca.component';
-import { IndexMarcaComponent } from './components/añadir/index-marca/index-marca.component';
+import { CreateDescuentoComponent } from './components/descuentos/create-descuento/create-descuento.component';
+import { IndexDescuentoComponent } from './components/descuentos/index-descuento/index-descuento.component';
+import { UpdateDescuentoComponent } from './components/descuentos/update-descuento/update-descuento.component';
+import { IndexContactoComponent } from './components/contacto/index-contacto/index-contacto.component';
 
 
 
@@ -39,6 +42,14 @@ const routes: Routes = [
     component: IndexCuponComponent
   },
   {
+    path: 'descuentos',
+    component: IndexDescuentoComponent
+  },
+  {
+    path: 'contactos',
+    component: IndexContactoComponent
+  },
+  {
     path: 'productos/registro',
     component: CreateProductComponent
   },
@@ -51,6 +62,10 @@ const routes: Routes = [
     component: CreateMarcaComponent
   },
   {
+    path: 'descuentos/registro',
+    component: CreateDescuentoComponent
+  },
+  {
     path: 'productos/galeria/:id',
     component: GaleriaProductComponent
   },
@@ -61,6 +76,10 @@ const routes: Routes = [
   {
     path: 'productos/:id',
     component: UpdateProductComponent
+  },
+  {
+    path: 'descuentos/:id',
+    component: UpdateDescuentoComponent
   },
   { path: '', component: LoginComponent },
   { path: '**', component: NotFoundComponent },

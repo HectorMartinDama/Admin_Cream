@@ -2,9 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Store } from '@ngrx/store';
 import { marca, MarcaService } from 'src/app/services/marca.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import * as marcaActions from '../../../state/actions/marca.actions';
+import { Observable } from 'rxjs';
+import { MarcaModel } from 'src/app/models/marca.interface';
 
 @Component({
   selector: 'app-index-marca',
@@ -14,17 +18,24 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dial
 export class IndexMarcaComponent implements OnInit {
 
   // variables
+  marcas$: Observable<any>= new Observable();
   columnsDisplay: string[]= ['nombre', 'funciones']; // nombre de las columnas
   data: any;
   searchValue: string; // guarda el valor del input.
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  constructor(private marcaSvc: MarcaService, public dialog: MatDialog, private notificationSvc: NotificationService) { }
+  constructor(private store: Store<any>, public dialog: MatDialog, private notificationSvc: NotificationService) { }
 
   ngOnInit(): void {
-    this.marcaSvc.allMarcas().subscribe(x =>{
-      this.data= new MatTableDataSource<marca>(x);
+    this.marcas$= this.store.select(marcaActions.loadMarcas);
+    this.store.dispatch(marcaActions.loadMarcas());
+    this.printMarcas();
+  }
+
+  printMarcas(): void{
+    this.marcas$.subscribe(marca =>{
+      this.data= new MatTableDataSource<MarcaModel>(marca);
       this.data.paginator= this.paginator;
     })
   }
@@ -38,7 +49,7 @@ export class IndexMarcaComponent implements OnInit {
     }
   }
 
-  // borra una marca
+  /* borra una marca
   deleteMarca(id){
     this.marcaSvc.borrarMarca(id).subscribe({
       next: data =>{
@@ -48,9 +59,9 @@ export class IndexMarcaComponent implements OnInit {
         this.notificationSvc.openSnackBar('Error al borrar la marca.', 'cerrar');
       }
     })
-  }
+  }*/
 
-  // abre el modal, para eliminar una marca.
+  /* abre el modal, para eliminar una marca.
   openDialog(nombre, id): void{
     const dialogRef= this.dialog.open(ConfirmDialogComponent, {
       width: '512px',
@@ -65,5 +76,5 @@ export class IndexMarcaComponent implements OnInit {
         this.deleteMarca(id);
       }
     });
-  }
+  }*/
 }

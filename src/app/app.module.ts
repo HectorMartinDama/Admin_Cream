@@ -14,6 +14,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
 import {MatMenuModule} from '@angular/material/menu';  
+import { MatDatepickerModule} from '@angular/material/datepicker'; 
+//MatNativeDateModule, MatMomentDateModule
+import { MatNativeDateModule } from '@angular/material/core';
+
 // animaciones del navegador
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // peticiones http
@@ -48,6 +52,23 @@ import { DragDirective } from './directives/drag.directive';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CreateMarcaComponent } from './components/añadir/create-marca/create-marca.component';
 import { IndexMarcaComponent } from './components/añadir/index-marca/index-marca.component';
+import { CreateDescuentoComponent } from './components/descuentos/create-descuento/create-descuento.component';
+import { UpdateDescuentoComponent } from './components/descuentos/update-descuento/update-descuento.component';
+import { IndexDescuentoComponent } from './components/descuentos/index-descuento/index-descuento.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ROOT_REDUCERS } from './state/app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { CuponEffects } from './state/effects/cupon.effects';
+import {MatStepperModule} from '@angular/material/stepper';
+import { ProductFormComponent } from './components/products/product-form/product-form.component';
+import { DescuentoEffects } from './state/effects/descuento.effects';
+import { NotFoundItemComponent } from './components/not-found-item/not-found-item.component';
+import { IndexContactoComponent } from './components/contacto/index-contacto/index-contacto.component';
+import { ContactoEffects } from './state/effects/contactos.effects';
+import { ProductoEffects } from './state/effects/producto.effects';
+import { AuthEffects } from './state/effects/auth.effects';
+import { MarcaEffects } from './state/effects/marca.effects';
 
 
 @NgModule({
@@ -71,7 +92,14 @@ import { IndexMarcaComponent } from './components/añadir/index-marca/index-marc
     GaleriaProductComponent,
     DragDirective,
     CreateMarcaComponent,
-    IndexMarcaComponent
+    IndexMarcaComponent,
+    CreateDescuentoComponent,
+    UpdateDescuentoComponent,
+    IndexDescuentoComponent,
+    ProductFormComponent,
+    NotFoundItemComponent,
+    IndexContactoComponent
+
   ],
   imports: [
     BrowserModule,
@@ -96,7 +124,13 @@ import { IndexMarcaComponent } from './components/añadir/index-marca/index-marc
     MatSnackBarModule,
     NgxDropzoneModule,
     MatMenuModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreDevtoolsModule.instrument({ name: 'test'}),
+    EffectsModule.forRoot([CuponEffects, DescuentoEffects, ContactoEffects, ProductoEffects, AuthEffects, MarcaEffects]),
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   
   ],
   entryComponents: [ConfirmDialogComponent],

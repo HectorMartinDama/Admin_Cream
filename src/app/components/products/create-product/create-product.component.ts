@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, MinLengthValidator, MinValidator, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, MinLengthValidator, MinValidator, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
@@ -7,10 +7,13 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { timeStamp } from 'console';
 import { NotificationService } from 'src/app/services/notification.service';
 import { MarcaService } from 'src/app/services/marca.service';
+import { FormTallaStockService } from 'src/app/services/form-talla-stock.service';
 
 export interface Talla{
   value: string
 }
+
+
 
 @Component({
   selector: 'app-create-product',
@@ -20,49 +23,119 @@ export interface Talla{
 export class CreateProductComponent implements OnInit {
 
 
+  form1= new FormGroup({});
+
+
   // variables
+  checked: boolean= false;
+  displayedColumns: string[] = ['talla', 'stock'];
   separatorKeysCodes= [ENTER, COMMA] as const;
   listaMarcas: Array<any>=[];
+  tallasSelect: string[]=[];
+  stockSelect: number[]=[];
+  tallaPorStockZapatilla: Array<{talla: string, stock: number}>= [];
   listaTallas: string[]= ['36', '37', '37.5', '38', '38.5', '39', '39.5', '40', '40.5', '41', '41.5', '42'];
   formCreateProduct!: FormGroup;
   file : File = undefined;
   imgSelect: any | ArrayBuffer= ''; // img por defecto.
 
 
-  constructor(private fb: FormBuilder, private productSvc: ProductService, private router: Router, private notificationSvc: NotificationService, private marcaSvc: MarcaService) { }
+  constructor(private _formBuilder: FormBuilder, private productSvc: ProductService, private router: Router, private notificationSvc: NotificationService, private marcaSvc: MarcaService, private prueba: FormTallaStockService) {
+   
+    
+  }
 
- 
+
+
 
 
 
 
 
   
-  ngOnInit(): void { // inicia la validacion.
-    this.formCreateProduct= this.initForm();
-    this.formCreateProduct.patchValue({publicado: false});
-    // recupero las marcas disponibles
-    this.marcaSvc.allMarcas().subscribe(x =>{
-      x.forEach(element =>{
-        this.listaMarcas.push(element.nombre);
-      })
-    })
-  }
+
+  
 
 
-  // valida el formulario
-  initForm(): FormGroup{
-    return this.fb.group({
+
+
+  
+
+
+
+  
+  
+
+
+
+  //-----------------------------------------------------------
+  ngOnInit(): void {
+    this.getMarcas(); // recupera las marcas
+    // validacion del formulario
+    this.form1= this._formBuilder.group({
       nombre: ['', [Validators.required]],
       marca: ['', [Validators.required]],
       sku: ['', [Validators.required]],
-      stock: ['', [Validators.required]],
-      tallas: ['', [Validators.required]],
-      precioCompra: ['', [Validators.required]],
       precioVenta: ['', [Validators.required]],
+      precioCompra: ['', [Validators.required]],
       publicado: ['', []],
-      portada: ['', [Validators.required]]
+      portada: ['', [Validators.required]],
+      tallaStockArray: new FormArray([])
     });
+    this.form1.patchValue({publicado: false})
+    
+
+    //this.formCreateProduct= this.initForm(); // inicia la validacion.
+    //this.formCreateProduct.patchValue({publicado: false});
+    // recupero las marcas disponibles
+    /*this.marcaSvc.allMarcas().subscribe(x =>{
+      x.forEach(element =>{
+        this.listaMarcas.push(element.nombre);
+      })
+    })*/
+  }
+  
+  get tallaStockArray(){
+    return (<FormArray>this.form1.get('tallaStockArray'));
+  }
+
+  addProducto() {
+    this.tallaStockArray.push(this.prueba.getTallaStockForm());
+  }
+
+  removeUser(i: number) {
+    this.tallaStockArray.removeAt(i);
+  }
+
+  onSubmit() {
+    console.log(this.form1.value);
+  }
+//--------------------------------------------------------
+
+
+  // valida el formulario
+  public initForm= this._formBuilder.group({
+    tallas: this._formBuilder.array([this.crearTallaStock()])
+  });
+
+  crearTallaStock(): FormGroup{
+    return this._formBuilder.group({
+      talla: ['', [Validators.required]],
+      stock: ['', [Validators.required]]
+    });
+  }
+
+  get TallasStock(): FormArray{
+    return this.formCreateProduct.get('tallas') as FormArray;
+  } 
+
+
+  getMarcas(){
+    this.marcaSvc.allMarcas().subscribe(marcas =>{
+      marcas.forEach(marca =>{
+        this.listaMarcas.push(marca.nombre);
+      })
+    })
   }
 
 
@@ -70,7 +143,9 @@ export class CreateProductComponent implements OnInit {
 
   // crea un producto
   createProduct(){
-    this.productSvc.createProduct(this.formCreateProduct.value, this.file).subscribe({
+    //const data= this.form1.value
+    //console.log(data.tallaStockArray[0].talla)
+    this.productSvc.createProduct(this.form1.value, this.file).subscribe({
       next: data =>{
         this.notificationSvc.openSnackBar(data.message, 'cerrar');
         this.router.navigate(['/products']);
@@ -81,6 +156,8 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
+
+ 
 
   // carga la imagen en el formulario cuando se añade una img.
   fileChangeEvent(event: any):void{

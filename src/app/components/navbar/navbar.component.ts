@@ -11,14 +11,14 @@ export class NavbarComponent implements OnInit {
   constructor(private loginSvc: LoginService) { }
 
   ngOnInit(): void {
-    this.loginSvc.getInfoAdmin(localStorage.getItem('idSession')).subscribe({
+    /*this.loginSvc.getInfoAdmin(localStorage.getItem('idSession')).subscribe({
       next: data =>{
         console.log(data);
       },
       error: error =>{
         console.log(error);
       }
-    })
+    })*/
   }
     
 

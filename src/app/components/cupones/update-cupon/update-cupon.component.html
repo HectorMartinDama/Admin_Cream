@@ -7,11 +7,11 @@
 
 <!-- Se cargar cuando no se ha encontrado ningun cupon -->
 <ng-container *ngIf="cupon == undefined">
-    <h1 style="text-align: center;">Cupon no encontrado</h1>
+    <app-not-found-item name="cupon" ruta="/cupones"></app-not-found-item>
 </ng-container>
 
 <!-- Si hay cupon lo enseño -->
-<div class="form-container" *ngIf="cupon != undefined">
+<div class="form-container" *ngIf="cupon">
     <form (ngSubmit)="updateCupon()" [formGroup]="formUpdateCupon
 ">
 

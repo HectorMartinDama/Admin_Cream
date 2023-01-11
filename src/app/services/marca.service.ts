@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { MarcaModel } from '../models/marca.interface';
 
 export interface marca{
   nombre: String
@@ -14,13 +15,20 @@ export class MarcaService {
   constructor(private http: HttpClient) { }
 
   // crea marca
-  createMarca(data): Observable<any>{
-    return this.http.post<any>('http://localhost:4201/api/marcas/createMarca', data);
+  createMarca(data): Observable<MarcaModel>{
+    return this.http.post<MarcaModel>('http://localhost:4201/api/marcas/createMarca', data);
   }
 
   // devuelve todas las marcas
-  allMarcas(): Observable<marca[]>{
-    return this.http.get<marca[]>('http://localhost:4201/api/marcas/allMarcas');
+  allMarcas(): Observable<MarcaModel[]>{
+    return this.http.get<MarcaModel[]>('http://localhost:4201/api/marcas/obtenerMarcas'
+    ).pipe(map((data) => {
+      const marcas: MarcaModel[] = [];
+      for(let key in data){
+        marcas.push({...data[key], id: key});
+      }
+      return marcas;
+    }));
   }
 
   // borrar la marca

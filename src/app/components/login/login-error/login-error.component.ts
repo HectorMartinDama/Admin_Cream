@@ -12,5 +12,5 @@ import { Component, Injectable, Input } from "@angular/core";
 
 export class LoginErrorComponent{
     @Input()
-    error: Error | null = null;
+    error: String | null = null;
 }

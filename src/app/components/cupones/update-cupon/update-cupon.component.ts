@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CuponService } from 'src/app/services/cupon.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-update-cupon',
@@ -16,9 +17,7 @@ export class UpdateCuponComponent implements OnInit {
   public id;
   public cupon;
 
-
-
-  constructor(private fb: FormBuilder, private cuponSvc: CuponService, private router: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private cuponSvc: CuponService, private router: ActivatedRoute, private notificationSvc: NotificationService, private routerNormal: Router) { }
 
 
   ngOnInit(): void { // inicia la validacion
@@ -58,10 +57,11 @@ export class UpdateCuponComponent implements OnInit {
   updateCupon(){
     this.cuponSvc.actualizarCupon(this.formUpdateCupon.value, this.id).subscribe({
       next: data =>{
-        console.log(data);
+        this.notificationSvc.openSnackBar(data.message, 'x');
+        this.routerNormal.navigate(['/cupones']);
       },
       error: error =>{
-        console.log(error);
+        this.notificationSvc.openSnackBar(error.error.message, 'x');        
       }
     });
   }

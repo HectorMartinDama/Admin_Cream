@@ -8,85 +8,66 @@
 
 
 
-<div class="form-container">
-    <form (ngSubmit)="createProduct()" [formGroup]="formCreateProduct">
+<div class="form-container">   
+      <mat-stepper linear #stepper>
 
-        <div class="firstGroup">
-            <!-- Modelo -->
+
+        <!-- 1 -->
+        <mat-step [stepControl]="form1" [editable]="true">
+
+          <form [formGroup]="form1">
+            <ng-template matStepLabel>Registro producto</ng-template>
+
+            <!-- Nombre -->
             <mat-form-field appearance="outline">
-                <mat-label>Modelo</mat-label>
+                <mat-label>Nombre</mat-label>
                 <input matInput formControlName="nombre">
-                <mat-error *ngIf="formCreateProduct
-                    .get('nombre')?.touched && formCreateProduct
+                <mat-error *ngIf="form1
+                    .get('nombre')?.touched && form1
                     .get('nombre')?.errors?.['required']">
-                    Modelo obligatario
+                    Nombre obligatario
                     </mat-error>
             </mat-form-field>
-        
-            <!-- Tallas -->
+
+            <!-- Marcas --->
             <mat-form-field appearance="outline">
                 <mat-label>Marca</mat-label>
                 <mat-select formControlName="marca">
                     <mat-option *ngFor="let marca of listaMarcas" [value]="marca">{{marca}}</mat-option>
                 </mat-select>
-                <mat-error *ngIf="formCreateProduct
-                .get('marca')?.touched && formCreateProduct
+                <mat-error *ngIf="form1
+                .get('marca')?.touched && form1
                 .get('marca')?.errors?.['required']">
                 Marca obligatorio
                 </mat-error>
             </mat-form-field>
-        
+
+           
             <!-- Sku -->
             <mat-form-field appearance="outline">
-                <mat-label>sku</mat-label>
-                <input matInput formControlName="sku">
-                <mat-error *ngIf="formCreateProduct
-                    .get('sku')?.touched && formCreateProduct
-                    .get('sku')?.errors?.['required']">
-                    SKU obligatorio
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="secondGroup">
-
-
-            <!-- Tallas -->
-           <mat-form-field appearance="outline">
-            <mat-label>Tallas</mat-label>
-            <mat-select formControlName="tallas" multiple>
-                <mat-option *ngFor="let talla of listaTallas" [value]="talla">{{talla}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="formCreateProduct
-            .get('tallas')?.touched && formCreateProduct
-            .get('tallas')?.errors?.['required']">
-            Tallas obligatorio
+            <mat-label>sku</mat-label>
+            <input matInput formControlName="sku">
+            <mat-error *ngIf="form1
+                .get('sku')?.touched && form1
+                .get('sku')?.errors?.['required']">
+                SKU obligatorio
             </mat-error>
-           </mat-form-field>
-            
-
-            <!-- stock -->
-            <mat-form-field appearance="outline">
-                <mat-label>Stock</mat-label>
-                <input matInput formControlName="stock" type="number" min="1" max="100" [ngModel]="1">
-                <mat-error *ngIf="formCreateProduct
-                        .get('stock')?.touched && formCreateProduct
-                        .get('stock')?.errors?.['required']">
-                        Stock obligatorio
-                </mat-error>
-                <mat-error *ngIf="formCreateProduct
-                        .get('stock')?.touched && formCreateProduct
-                        .get('stock')?.errors?.['min']">
-                        Recuerda el valor minimo es 1
-                </mat-error>
-                <mat-error *ngIf="formCreateProduct
-                        .get('stock')?.touched && formCreateProduct
-                        .get('stock')?.errors?.['max']">
-                        Recuerda el valor maximo es 100
-                </mat-error>
             </mat-form-field>
 
-             <!-- Imagen de producto -->
+             <!-- Tallas 
+             <mat-form-field appearance="outline">
+                <mat-label>Tallas</mat-label>
+                <mat-select formControlName="tallas" multiple [(ngModel)]="tallasSelect">
+                    <mat-option *ngFor="let talla of listaTallas" [value]="talla" >{{talla}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="firstFormGroup
+                .get('tallas')?.touched && firstFormGroup
+                .get('tallas')?.errors?.['required']">
+                Tallas obligatorio
+                </mat-error>
+            </mat-form-field>-->
+
+            <!-- Imagen de producto -->
             <div>
                 <mat-card class="image-card">
                     <mat-card-header>
@@ -99,76 +80,91 @@
                 </mat-card>
 
             </div>
-            
-        </div>
-        
 
-        <!-- Precio compra --> 
-        <div>
+             <!-- Precio compra --> 
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Precio Compra</mat-label>
                 <input matInput type="number" placeholder="0" formControlName="precioCompra" min="1">
-                <mat-error *ngIf="formCreateProduct
-                        .get('precioCompra')?.touched && formCreateProduct
+                <mat-error *ngIf="form1
+                        .get('precioCompra')?.touched && form1
                         .get('precioCompra')?.errors?.['required']">
                         Precio Compra obligatorio
                 </mat-error>
-                <mat-error *ngIf="formCreateProduct
-                        .get('precioCompra')?.touched && formCreateProduct
+                <mat-error *ngIf="form1
+                        .get('precioCompra')?.touched && form1
                         .get('precioCompra')?.errors?.['min']">
                         Recuerda el valor minimo es 1€
                 </mat-error>
             </mat-form-field>
-        </div>
             
         
 
-        <!-- Precio venta -->
-        <div>
+            <!-- Precio venta -->
             <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Precio Venta</mat-label>
                 <input matInput type="number" placeholder="0" formControlName="precioVenta" min="1">
-                <mat-error *ngIf="formCreateProduct
-                        .get('precioVenta')?.touched && formCreateProduct
+                <mat-error *ngIf="form1
+                        .get('precioVenta')?.touched && form1
                         .get('precioVenta')?.errors?.['required']">
                         Precio Venta obligatorio
                 </mat-error>
-                <mat-error *ngIf="formCreateProduct
-                        .get('precioVenta')?.touched && formCreateProduct
+                <mat-error *ngIf="form1
+                        .get('precioVenta')?.touched && form1
                         .get('precioVenta')?.errors?.['min']">
                         Recuerda el valor minimo es 1€
                 </mat-error>
             </mat-form-field>
-        </div>
 
 
-        <!-- Publicar en tienda -->
-        <div>
-            <mat-checkbox formControlName="publicado" [checked]="false">Publicar en Tienda</mat-checkbox>
-        </div>
+            <!-- Publicar en tienda -->
+            <mat-checkbox type="" formControlName="publicado">Publicar en Tienda</mat-checkbox>
+
+            <div>
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          </form>
+        </mat-step>
 
 
-       
+        <!-- 2 -->
+        <mat-step [stepControl]="form1" [editable]="false">
+            <ng-container >
+                <form [formGroup]="form1" (ngSubmit)="onSubmit()">
+                    <ng-template matStepLabel >Stock por tallas</ng-template>
 
+                    
+                    
+                    <button type="button" mat-raised-button color="accent" (click)="addProducto()">add</button>
+                    
+                    <div *ngFor="let u of tallaStockArray.controls; index as i">
 
-       
+                        <span>Talla {{ i + 1 }}</span> &nbsp; &nbsp;
+                        <app-product-form [inputFormGroup]="$any(u)"></app-product-form> &nbsp; &nbsp;
+                        <button mat-raised-button color="accent" (click)="removeUser(i)">borrar</button>
+                
+                    </div>
         
-        
-       
+                   
+                    <div>
+                      <button mat-button matStepperPrevious>Volver</button>
+                      <button mat-button matStepperNext [disabled]="form1.invalid">Siguiente</button>
+                    </div>
+                </form>
+            </ng-container>
+          
+        </mat-step>
 
-        
-       
-        <!-- Boton que hace la petición -->
-        <button mat-button type="submit" [disabled]="formCreateProduct
-            .invalid">Crear producto</button>
-        
-
-    </form>
-
-   
+        <!-- 3 -->
+        <mat-step>
+          <ng-template matStepLabel>Finalizar</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button (click)="createProduct()">Crear</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+      
     
-
-
 </div>
 
 

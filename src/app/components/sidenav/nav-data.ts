@@ -45,12 +45,28 @@ export const navbarData : INavbarData[] = [
             {
                 routerLink: '/marcas/registro',
                 label: 'Agregar Marca'
-            },
-            {
-                routerLink: '/cupones',
-                label: 'Agregar Talla'
             }
         ]
-    }
+    },
+    {
+        label: 'Descuentos',
+        icon: 'trending-up-outline',
+        routerLink: '/cupones/registro',
+        items: [
+            {
+                routerLink: '/descuentos/registro',
+                label: 'Agregar Descuento'
+            },
+            {
+                routerLink: '/descuentos',
+                label: 'Buscar Descuento'
+            }
+        ]
+    },
+    { 
+        label: 'Mensajes',
+        icon: 'mail-outline',
+        routerLink: '/contactos'
+    },
 ];
 

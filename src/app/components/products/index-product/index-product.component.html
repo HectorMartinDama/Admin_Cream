@@ -10,9 +10,13 @@
     <a>Tienda</a>
 </mat-toolbar>
 
+<!-- spinner -->
+<div class="container-loader" *ngIf="loading$ | async">
+    <span class="loader"></span>
+</div>
 
 
-<div class="table-container" tabindex="0">
+<div class="table-container" tabindex="0" *ngIf="!(loading$ | async)">
 
     <!-- Buscador -->
     <div class="barraSuperior">

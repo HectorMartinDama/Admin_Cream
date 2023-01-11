@@ -18,7 +18,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   // Si tengo un token en las cookies, agrego el token en el Header de las peticiones http.
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token = localStorage.getItem('session'); 
+    const token = localStorage.getItem('token'); 
     let request= req;
     if(token){
       request= req.clone({
