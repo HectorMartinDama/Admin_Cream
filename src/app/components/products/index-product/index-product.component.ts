@@ -8,11 +8,22 @@ import { Workbook } from 'exceljs';
 import * as fs from "file-saver";
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectListProductos, selectLoadingProductos } from 'src/app/state/selectors/producto.selectors';
-import { loadProductos } from 'src/app/state/actions/producto.actions';
+import { selectIsLoadingDeleteManyProducto, selectListProductos, selectLoadingProductos } from 'src/app/state/selectors/producto.selectors';
+import { loadProductos, deleteManyProducto, deleteProducto } from 'src/app/state/actions/producto.actions';
 import { ProductoModel } from 'src/app/models/producto.interface';
-
+import { SelectionModel } from '@angular/cdk/collections';
 // https://stackoverflow.com/questions/17826082/how-to-delete-multiple-ids-in-mongodb
+
+
+export interface ProductoTable {
+  portada: string,
+  nombre: string,
+  sku: string,
+  marca: string
+  publicado: boolean
+  index: number;
+  _id: string;
+}
 
 @Component({
   selector: 'app-index-product',
@@ -23,10 +34,12 @@ export class IndexProductComponent implements OnInit {
 
 
   // Variables
-  loading$: Observable<boolean>= new Observable()
+  loading$: Observable<boolean>;
+  loadingDelete$: Observable<boolean>;
   productos$: Observable<any>= new Observable()
-  columnsDisplay: string[]= ['portada', 'nombre', 'marca', 'stock', 'funciones']; // nombre de las columnas
+  columnsDisplay: string[]= ['select', 'portada', 'nombre', 'marca', 'stock', 'funciones']; // nombre de las columnas
   data: any;
+  selection= new SelectionModel<ProductoModel>(true, []);
   searchValue: string; // guarda el valor del input.
   @ViewChild(MatPaginator) paginator: MatPaginator;
   url: any;
@@ -38,6 +51,7 @@ export class IndexProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading$= this.store.select(selectLoadingProductos);
+    this.loadingDelete$= this.store.select(selectIsLoadingDeleteManyProducto);
     this.store.dispatch(loadProductos());
     this.printProductos();
   }
@@ -68,17 +82,15 @@ export class IndexProductComponent implements OnInit {
     }
   }
 
-  // borra un producto
-  deleteProduct(id){
-    this.productSvc.deleteProduct(id).subscribe({
-      next: data =>{
-        console.log(data);
-      },
-      error: error =>{
-        console.log(error);
-      }
-    });
+
+  deleteManyProducto(){
+    let idsProducto: string[]= [];
+    this.selection.selected.map(producto => idsProducto.push(producto._id));
+    this.store.dispatch(deleteManyProducto({idsProducto}));
   }
+
+
+
 
   // abre el modal, para eliminar un producto.
   openDialog(nombre, id): void{
@@ -86,14 +98,15 @@ export class IndexProductComponent implements OnInit {
       width: '512px',
       data: { // envio los datos al dialog
         titulo: 'producto',
-        nombre: nombre
+        nombre: nombre,
+        validacion: 'ok',
       }
     });
 
     dialogRef.afterClosed().subscribe(res =>{
       console.log(res);
       if(res){
-        this.deleteProduct(id);
+        this.store.dispatch(deleteProducto({id: id}));
       }
     });
   }
@@ -126,4 +139,32 @@ export class IndexProductComponent implements OnInit {
       fs.saveAs(blod, fname+'-'+new Date().valueOf()+'.xlsx');
     }))
   }
+
+    // si el numero de marcas seleccionadas es igual al numero de filas.
+    isAllSelected(){
+      const numSelected= this.selection.selected.length;
+      const numRows= this.data.data.length;
+      return numSelected === numRows;
+    }
+  
+    // selecciona todas las marcas o las deselecciona
+    toggleAllRows(){
+      if(this.isAllSelected()){
+        this.selection.clear();
+        return;
+      }
+      this.selection.select(...this.data.data);
+    }
+  
+    checkboxLabel(row?: ProductoTable): string{
+      if(!row){
+        return `${this.isAllSelected() ? 'deselect': 'select'} all`;
+      }
+      return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.index + 1}`
+    }
+
+
+
+
+
 }

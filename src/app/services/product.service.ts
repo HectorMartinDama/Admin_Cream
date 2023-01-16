@@ -55,6 +55,12 @@ export class ProductService {
     return this.http.delete('http://localhost:4201/api/products/deleteProduct/'+id)
   };
 
+  borrarSeleccionadosProducto(idsProducto): Observable<any>{
+    return this.http.delete('http://localhost:4201/api/products/borrarSeleccionadosProducto/' + idsProducto );
+  }
+
+
+
   // Actualiza el producto.
   actualizarProducto(data, file, id): Observable<any>{
     if(data.portada){ // si hay nueva img

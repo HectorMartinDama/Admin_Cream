@@ -3,9 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { FileHandle } from 'src/app/directives/file-handle';
 import { NotificationService } from 'src/app/services/notification.service';
 import { product, ProductService } from 'src/app/services/product.service';
+import { loadGaleria } from 'src/app/state/actions/producto.actions';
+import { selectListGaleria, selectLoadingGaleria } from 'src/app/state/selectors/producto.selectors';
 import { v4 as uuidv4 } from 'uuid';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 declare const tns; //  time-slider
@@ -25,6 +29,8 @@ export class GaleriaProductComponent implements OnInit {
 
   // variables
   public id;
+  loading$: Observable<boolean>;
+  galeria$: Observable<any>;
   columnsDisplay: string[]= ['imagen', 'eliminar']; // nombre de las columnas
   data: Array<any>= [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,88 +40,33 @@ export class GaleriaProductComponent implements OnInit {
 
   
 
-  constructor(private productSvc: ProductService, private router: ActivatedRoute, private notificationSvc: NotificationService, public dialog: MatDialog) {
+  constructor(private productSvc: ProductService, private router: ActivatedRoute, private notificationSvc: NotificationService, public dialog: MatDialog, private store: Store<any>) {
     this.url= 'http://localhost:4201/api/products/';
   }
 
   ngOnInit(): void {
+    this.getIdUrl();
+    this.loading$= this.store.select(selectLoadingGaleria);
+    this.store.dispatch(loadGaleria({id: this.id}));
+    this.printGaleria();
+  }
 
+  printGaleria(): void {
+    this.galeria$= this.store.select(selectListGaleria);
+    this.galeria$.subscribe(x => {
+      this.data= x;
+    })
+  }
 
-    // obtengo el id del parametro url
+  // obtengo el id del parametro url
+  getIdUrl(): void{
     this.router.params.subscribe(params =>{
       this.id= params['id'];
-    })
-    this.productSvc.obtenerGaleria(this.id).subscribe(x =>{
-      this.data= x;
-      /*this.data= new MatTableDataSource<product>(x);
-      this.data.paginator= this.paginator;*/
-    });
-
-    setTimeout(() =>{
-        tns({
-          container: '.cs-carousel-inner',
-          controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
-          navPosition: "top",
-          controlsPosition: "top",
-          mouseDrag: !0,
-          speed: 600,
-          autoplayHoverPause: !0,
-          autoplayButtonOutput: !1,
-          navContainer: "#cs-thumbnails",
-          navAsThumbnails: true,
-          gutter: 15,
-        });
-  
-        //inicia la galeria de las imagenes
-        const e= document.querySelectorAll(".cs-gallery");
-        if(e.length){
-          for (let t = 0; t < e.length; t++) {
-            lightGallery(e[t], {selector: ".cs-gallery-item", download: !1, videojs: !0, youtubePlayerParams: { modestbranding: 1, showinfo: 0, rel: 0 }, videoPlayerParams: {
-              byline: 0, portrait: 0 }});
-          }
-        }
-  
-        // inicia el slider de productos recomendados
-      tns({
-        container: '.cs-carousel-inner-two',
-        controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
-        navPosition: "top",
-        controlsPosition: "top",
-        mouseDrag: !0,
-        speed: 600,
-        autoplayHoverPause: !0,
-        autoplayButtonOutput: !1,
-        nav: false,
-        controlsContainer: "#custom-controls-related",
-        responsive: {
-          0: {
-            items: 1,
-            gutter: 20
-          },
-          480: {
-            items: 2,
-            gutter: 24
-          },
-          700: {
-            items: 3,
-            gutter: 24
-          },
-          1100: {
-            items: 4,
-            gutter: 30
-          }
-        }
-      });
-      }, 500);
-         
+    }) 
   }
 
   onSelect(event){
-    // antes de añadir el archivo compruebo si es una imagen.
-    
-    
-    
-    
+    // antes de añadir el archivo compruebo si es una imagen.    
     if(event.addedFiles[0].size <= 4000000){
       if(event.addedFiles[0].type == 'image/png' || event.addedFiles[0].type == 'image/jpg' || event.addedFiles[0].type == 'image/jpeg' || event.addedFiles[0].type == 'image/webp'){
         // inserta la imagen en el array.

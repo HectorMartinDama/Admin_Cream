@@ -1,9 +1,13 @@
-import { LoginModel } from "./auth.interface";
-
+import { LoginModel, UpdateNameAccountModel, UserModel } from "./auth.interface";
 
 // estado incial
 export interface AuthState {
     loginData: LoginModel | null,
+    updateNameAccount: UpdateNameAccountModel | null, 
     isLoading: boolean,
-    isError: string | null
+    isLoadingCambiarNombre: boolean,
+    isError: string | null,
+    isErrorUpdateName: string | null
+    userInfo: {},
+    loadingUserInfo: boolean
 }

@@ -1,4 +1,4 @@
 export interface MarcaModel {
     nombre: string,
-    id: string
+    _id: string,
 }

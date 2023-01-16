@@ -4,10 +4,6 @@
 <app-sidenav></app-sidenav>
 
 
-
-
-
-
 <div class="form-container">   
       <mat-stepper linear #stepper>
 
@@ -54,18 +50,6 @@
             </mat-error>
             </mat-form-field>
 
-             <!-- Tallas 
-             <mat-form-field appearance="outline">
-                <mat-label>Tallas</mat-label>
-                <mat-select formControlName="tallas" multiple [(ngModel)]="tallasSelect">
-                    <mat-option *ngFor="let talla of listaTallas" [value]="talla" >{{talla}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="firstFormGroup
-                .get('tallas')?.touched && firstFormGroup
-                .get('tallas')?.errors?.['required']">
-                Tallas obligatorio
-                </mat-error>
-            </mat-form-field>-->
 
             <!-- Imagen de producto -->
             <div>
@@ -78,7 +62,6 @@
                         <input type="file" (change)="fileChangeEvent($event)" formControlName="portada">
                     </mat-card-actions>
                 </mat-card>
-
             </div>
 
              <!-- Precio compra --> 

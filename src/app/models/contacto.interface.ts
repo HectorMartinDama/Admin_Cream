@@ -3,5 +3,9 @@ export interface ContactoModel {
     asunto: string,
     email: string,
     estado: string,
-    mensaje: string
+    mensaje: string,
+    creado: string
 };
+
+
+

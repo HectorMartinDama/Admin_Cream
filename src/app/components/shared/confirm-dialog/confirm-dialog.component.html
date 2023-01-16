@@ -1,7 +1,7 @@
 
 <h2 mat-dialog-title>Borrar {{data.titulo}}</h2>
 <mat-dialog-content [formGroup]="form">
-    <p style="font-size: 13px; color: #737373;">Parra borra el {{data.titulo}} <strong>{{data.nombre}}</strong>, escriba el nombre para confirmar.</p>
+    <p style="font-size: 13px; color: #737373;">Parra borra {{data.genero}} {{data.titulo}} <strong>{{data.nombre}}</strong>, {{data.cuerpo}}.</p>
     <input formControlName="productName" placeholder="Introduce el nombre del {{data.titulo}}">
     <p type="text" formControlName="valueInput"></p>
 </mat-dialog-content>

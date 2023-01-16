@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, EMPTY, map, mergeMap } from "rxjs";
-import { ContactoService } from "src/app/services/contacto.service";
-
+import { ContactoService } from "../../services/contacto.service";
 
 @Injectable()
 export class ContactoEffects {

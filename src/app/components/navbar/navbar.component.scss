@@ -10,8 +10,9 @@ mat-toolbar{
 
 
 img{
-    width: 116px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }
 
 .menu-container{
@@ -20,3 +21,12 @@ img{
     justify-content: right;
     align-items: right;
 }
+
+// cambia el tamaño de los iconos
+ion-icon{
+    font-size: 20px;
+}
+
+
+
+

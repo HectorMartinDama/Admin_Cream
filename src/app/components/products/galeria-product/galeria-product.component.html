@@ -5,68 +5,25 @@
 
 
 
+<!-- spinner -->
+<div class="container-loader" *ngIf="loading$ | async">
+    <span class="loader"></span>
+</div>
 
-<div class="container">
+
+
+
+<div class="container" *ngIf="!(loading$ | async)">
   <!-- Single product -->
  
-
-
-        <!-- Product gallery -->
-        <div class="cs-carousel cs-gallery cs-product-gallery mx-auto" style="max-width: 570px;">            <div _ngcontent-jya-c294 data-carousel-options class="cs-carousel-inner ng-star-inserted">
-                <div class="cs-carousel-inner" data-carousel-options=''>
-                    <!-- Product gallery item -->
-                    <a  *ngFor="let item of data; let indice= index" class="cs-gallery-item" href="{{url + 'obtenerPortada/' + item.imagen}}" data-sub-html='<h6 class="text-light">Gallery image caption #1</h6>'>
-                        <img class="rounded" [src]="url + 'obtenerPortada/'+item.imagen" alt="Carousel image">
-                        <span class="cs-gallery-caption">Imagen #{{indice+1}}</span>
-                    </a>
-                </div>
-
-                <!-- Product gallery thumbnails -->
-                <div class="cs-thumbnails" id="cs-thumbnails">
-                    <button mat-button *ngFor="let item of data; let indice= index"  [attr.data-nav]="indice" >
-                    <img [src]="url + 'obtenerPortada/' + item.imagen" alt="Thumbnail">
-                    </button>
-                </div>
-        </div>
-
-            
-        
-
-        <div *ngIf="data == null" class="cs-carousel-inner" >
-            <a class="cs-gallery-item" Target="_blank" href="{{url + '/obtenerPortada/l7y7MHiyxUvOzQTJaNYmUhiC.webp'}}" >
-                <img class="rounded" [src]="url + 'obtenerPortada/l7y7MHiyxUvOzQTJaNYmUhiC.webp'" alt="Carousel image">
-            </a>
-        </div>
-
-   
-
-
-
-     
-    
-
-
-
-  <div>
-
-
-
-
-
-
-    <!-- Galeria de producto -->
-   
-
-
- 
-    <!-- Imagen portada producto 
+    <!-- Imagen portada producto -->
     <div class="image-portada">
         <mat-card>
             <img mat-card-image [src]="url + 'obtenerPortada/' + this.id" class="image-card">
         </mat-card>
-    </div> -->
+    </div>
 
-    <!-- Drop zone 
+    <!-- Drop zone -->
     <mat-card class="card">    
         <mat-card-content class="dropzone">
             <ngx-dropzone (change)="onSelect($event)">
@@ -83,38 +40,38 @@
             </button>
         </mat-card-actions>
     </mat-card>
-</div> -->
+</div>
 
 
 
 
 
 <div class="container-table">
-    <!-- Tabla 
-    <table mat-table [dataSource]="data"> -->
+    <!-- Tabla -->
+    <table mat-table [dataSource]="data">
 
-        <!-- Img Product 
+        <!-- Img Product -->
         <ng-container matColumnDef="imagen">
             <th mat-header-cell *matHeaderCellDef>Imagen</th>
             <td mat-cell *matCellDef="let element">
                <img style="max-width: 50px; max-height: 50px;" mat-card-image [src]="url + 'obtenerPortada/' + element.imagen">
             </td>
-        </ng-container>-->
+        </ng-container>
 
     
-        <!-- Function Column 
+        <!-- Function Column -->
         <ng-container matColumnDef="eliminar">
             <th mat-header-cell *matHeaderCellDef>Eliminar</th>
             <td mat-cell *matCellDef="let element" >
                 <ion-icon name="trash-outline" (click)="openDialog(element.imagen, element._id)"></ion-icon>
             </td>
-        </ng-container> -->
+        </ng-container>
     
-       <!-- <tr mat-header-row *matHeaderRowDef="columnsDisplay"></tr>
+        <tr mat-header-row *matHeaderRowDef="columnsDisplay"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsDisplay;"> 
-    </table> -->
-    <!-- Paginator 
-    <mat-paginator [pageSize]="4" aria-label="Select page of user" class="paginator"></mat-paginator>  -->      
+    </table>
+    <!-- Paginator -->
+    <mat-paginator [pageSize]="4" aria-label="Select page of user" class="paginator"></mat-paginator>  
 </div>
 
 

@@ -20,11 +20,14 @@
         </mat-form-field>
     
         <!-- Boton que hace la petición -->
-        <button mat-button type="submit" [disabled]="formCreateMarca
-        .invalid">Crear marca</button>
+        <button mat-button type="submit" [disabled]="isLoading$  && formCreateMarca.invalid" [class.spinner]="isLoading$ | async" >Crear marca</button>
     </form>
 
+    <app-login-error *ngIf="isError$ | async" [error]="isError$ | async"></app-login-error>
+
    
+
+  
 
     
 

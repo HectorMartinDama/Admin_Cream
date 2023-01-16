@@ -6,7 +6,10 @@ import { CustomValidators } from '../custom-validators';
 // informacion del dialog
 export interface DialogData{
   titulo: string,
-  nombre: string
+  nombre: string,
+  validacion: string,
+  genero: string,
+  cuerpo: string
 }
 
 
@@ -28,7 +31,7 @@ export class ConfirmDialogComponent implements OnInit {
   // inicia la validacion del input
   ngOnInit(): void {
     this.form= this.initForm();
-    this.form.patchValue({valueInput: this.data.nombre});
+    this.form.patchValue({valueInput: this.data.validacion});
   }
 
   // valida el input
@@ -43,9 +46,6 @@ export class ConfirmDialogComponent implements OnInit {
   get productName(): FormControl{
     return this.form.get('productName') as FormControl;
   }
-
-  
-
 
 
   // cierra el dialog (modal)

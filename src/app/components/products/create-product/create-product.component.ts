@@ -82,17 +82,12 @@ export class CreateProductComponent implements OnInit {
       portada: ['', [Validators.required]],
       tallaStockArray: new FormArray([])
     });
+
+
     this.form1.patchValue({publicado: false})
     
 
-    //this.formCreateProduct= this.initForm(); // inicia la validacion.
-    //this.formCreateProduct.patchValue({publicado: false});
-    // recupero las marcas disponibles
-    /*this.marcaSvc.allMarcas().subscribe(x =>{
-      x.forEach(element =>{
-        this.listaMarcas.push(element.nombre);
-      })
-    })*/
+    
   }
   
   get tallaStockArray(){

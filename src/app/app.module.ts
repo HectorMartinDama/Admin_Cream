@@ -15,6 +15,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
 import {MatMenuModule} from '@angular/material/menu';  
 import { MatDatepickerModule} from '@angular/material/datepicker'; 
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+
+// graficos in real time
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 //MatNativeDateModule, MatMomentDateModule
 import { MatNativeDateModule } from '@angular/material/core';
 
@@ -69,6 +77,14 @@ import { ContactoEffects } from './state/effects/contactos.effects';
 import { ProductoEffects } from './state/effects/producto.effects';
 import { AuthEffects } from './state/effects/auth.effects';
 import { MarcaEffects } from './state/effects/marca.effects';
+import { FilterMensajesPipe } from './pipes/filter-mensajes.pipe';
+import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import { ConfirmBorrarCuentaComponent } from './components/configuracion/confirm-borrar-cuenta/confirm-borrar-cuenta.component';
+import { IndexClientesComponent } from './components/clientes/index-clientes/index-clientes.component';
+import { ClienteEffects } from './state/effects/cliente.effects';
+import { ComprasComponent } from './components/clientes/compras/compras.component';
+import { DetalleCompraComponent } from './components/clientes/detalle-compra/detalle-compra.component';
+import { GraficoVentasComponent } from './components/dashboard/graficos/grafico-ventas/grafico-ventas.component';
 
 
 @NgModule({
@@ -98,7 +114,14 @@ import { MarcaEffects } from './state/effects/marca.effects';
     IndexDescuentoComponent,
     ProductFormComponent,
     NotFoundItemComponent,
-    IndexContactoComponent
+    IndexContactoComponent,
+    FilterMensajesPipe,
+    ConfiguracionComponent,
+    ConfirmBorrarCuentaComponent,
+    IndexClientesComponent,
+    ComprasComponent,
+    DetalleCompraComponent,
+    GraficoVentasComponent
 
   ],
   imports: [
@@ -127,10 +150,13 @@ import { MarcaEffects } from './state/effects/marca.effects';
     IonicModule.forRoot(),
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ name: 'test'}),
-    EffectsModule.forRoot([CuponEffects, DescuentoEffects, ContactoEffects, ProductoEffects, AuthEffects, MarcaEffects]),
+    EffectsModule.forRoot([CuponEffects, DescuentoEffects, ContactoEffects, ProductoEffects, AuthEffects, MarcaEffects, ClienteEffects]),
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatBadgeModule,
+    MatExpansionModule,
+    NgxChartsModule
   
   ],
   entryComponents: [ConfirmDialogComponent],

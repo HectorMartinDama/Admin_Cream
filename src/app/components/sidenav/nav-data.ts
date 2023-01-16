@@ -4,7 +4,7 @@ export const navbarData : INavbarData[] = [
     { 
         label: 'Inicio',
         icon: 'home-outline',
-        routerLink: ''
+        routerLink: '/dashboard'
     },
     {
         label: 'Productos',
@@ -17,7 +17,7 @@ export const navbarData : INavbarData[] = [
 
             },
             {
-                routerLink: '/products',
+                routerLink: '/dashboard/productos',
                 label: 'Buscar Producto'
             }
         ]
@@ -68,5 +68,11 @@ export const navbarData : INavbarData[] = [
         icon: 'mail-outline',
         routerLink: '/contactos'
     },
+    { 
+        label: 'Clientes',
+        icon: 'people-outline',
+        routerLink: '/clientes'
+    },
+    
 ];
 

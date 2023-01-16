@@ -22,6 +22,11 @@ import { CreateDescuentoComponent } from './components/descuentos/create-descuen
 import { IndexDescuentoComponent } from './components/descuentos/index-descuento/index-descuento.component';
 import { UpdateDescuentoComponent } from './components/descuentos/update-descuento/update-descuento.component';
 import { IndexContactoComponent } from './components/contacto/index-contacto/index-contacto.component';
+import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import { IndexClientesComponent } from './components/clientes/index-clientes/index-clientes.component';
+import { ComprasComponent } from './components/clientes/compras/compras.component';
+import { DetalleCompraComponent } from './components/clientes/detalle-compra/detalle-compra.component';
+import { NotLoginGuard } from './guards/not-login.guard';
 
 
 
@@ -29,17 +34,10 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, 
     canActivate: [UserGuard], // protege la propia ruta (/dashboard)
     canActivateChild: [DashboardGuard], // protege las rutas que cuelgan de ella (rutas hijas)
-    children: [
-      
-    ]  
+    children: [],
   },
   {
-    path: 'products',
-    component: IndexProductComponent
-  },
-  {
-    path: 'cupones',
-    component: IndexCuponComponent
+    path: 'productos',component: IndexProductComponent
   },
   {
     path: 'descuentos',
@@ -48,6 +46,22 @@ const routes: Routes = [
   {
     path: 'contactos',
     component: IndexContactoComponent
+  },
+  {
+    path: 'cuenta',
+    component: ConfiguracionComponent
+  },
+  {
+    path: 'clientes',
+    component: IndexClientesComponent
+  },
+  {
+    path: 'clientes/compras/:id',
+    component: ComprasComponent
+  },
+  {
+    path: 'clientes/detalleCompra/:id',
+    component: DetalleCompraComponent
   },
   {
     path: 'productos/registro',

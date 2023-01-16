@@ -13,6 +13,8 @@ import { authReducer } from "./reducers/auth.reducers";
 import { AuthState } from "../models/auth.state";
 import { marcaReducer } from "./reducers/marca.reducers";
 import { MarcaState } from "../models/marca.state";
+import { ClienteState } from "../models/cliente.state";
+import { clienteReducer } from "./reducers/cliente.reducers";
 
 export interface AppState{
     coupons: CouponState,
@@ -20,7 +22,8 @@ export interface AppState{
     contactos: ContactoState,
     productos: ProductoState,
     auths: AuthState,
-    marcas: MarcaState
+    marcas: MarcaState,
+    clientes: ClienteState
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<AppState> ={
@@ -29,5 +32,6 @@ export const ROOT_REDUCERS: ActionReducerMap<AppState> ={
     contactos: contactoReducer,
     productos: productoReducer,
     auths: authReducer,
-    marcas: marcaReducer
+    marcas: marcaReducer,
+    clientes: clienteReducer
 };

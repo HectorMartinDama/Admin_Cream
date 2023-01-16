@@ -1,7 +1,8 @@
-import { Component, OnInit, SchemaMetadata } from '@angular/core';
+import { Component, OnInit, SchemaMetadata, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { ContactoModel } from 'src/app/models/contacto.interface';
 import { ContactoService } from 'src/app/services/contacto.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { loadContactos } from 'src/app/state/actions/contacto.actions';
@@ -19,9 +20,9 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dial
 })
 export class IndexContactoComponent implements OnInit {
 
-
+  mensajesFiltrados= '';
   loading$: Observable<boolean>= new Observable()
-  contactos$: Observable<any>= new Observable()
+  contactos$: Observable<ContactoModel[]>;
 
   constructor(private store: Store<any>,public dialog: MatDialog, private _contactoSvc : ContactoService, private _ntfSvc: NotificationService) { }
 
